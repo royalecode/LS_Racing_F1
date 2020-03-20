@@ -2,7 +2,7 @@
 #include "LS_allegro.h"
 
 int main(void){
-
+    //sha dafegir les llibreries alegro
     int nSortir = 0;
 
     //Inicialitzem Allegro
