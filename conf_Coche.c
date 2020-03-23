@@ -3,3 +3,19 @@
 //
 
 #include "conf_Coche.h"
+
+leerPiloto(){
+
+}
+
+mostrarGaraje(){
+
+}
+
+escogerPieza(){
+
+}
+
+mostrarConfActual(){
+
+}

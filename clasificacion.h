@@ -5,4 +5,7 @@
 #ifndef GRUPO_4_CLASIFICACION_H
 #define GRUPO_4_CLASIFICACION_H
 
+printarClasificacion();
+ordenacionPilotos();
+
 #endif //GRUPO_4_CLASIFICACION_H

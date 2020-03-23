@@ -3,3 +3,19 @@
 //
 
 #include "leer_Ficheros.h"
+
+leerPiezas(){
+
+}
+
+leePremios(){
+
+}
+
+leerCorredores(){
+
+}
+
+leerEstadisticasCoche(){
+
+}

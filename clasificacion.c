@@ -3,3 +3,11 @@
 //
 
 #include "clasificacion.h"
+
+printarClasificacion(){
+
+}
+
+ordenacionPilotos(){
+
+}

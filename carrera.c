@@ -3,3 +3,22 @@
 //
 
 #include "carrera.h"
+
+printarInfoCarrera(){
+
+}
+mostrarSemaforo(){
+
+}
+mostrarCarrera(){
+
+}
+controlPitStops(){
+
+}
+calcularRendimiento(){
+
+}
+mostrarFinalCarrera(){
+
+}

@@ -5,4 +5,9 @@
 #ifndef GRUPO_4_LEER_FICHEROS_H
 #define GRUPO_4_LEER_FICHEROS_H
 
+leerPiezas();
+leePremios();
+leerCorredores();
+leerEstadisticasCoche();
+
 #endif //GRUPO_4_LEER_FICHEROS_H

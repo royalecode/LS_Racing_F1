@@ -3,3 +3,7 @@
 //
 
 #include "guardar_Temporada.h"
+
+logTemporada(){
+
+}
