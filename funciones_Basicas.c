@@ -20,6 +20,7 @@ int scanRange(int min, int max, char* msg, char* error){
     do{
         printf("%s", msg);
         fgets(line, 100, stdin);
+        line[strlen(line) - 1] = '\0';
         if(isNumbers(line)) {
             num = atoi(line);
             if(num >= min && num <= max) err = 0;
