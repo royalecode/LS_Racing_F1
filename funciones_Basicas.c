@@ -5,16 +5,16 @@
 #include "funciones_Basicas.h"
 
 //funcion que mira si un caracter es numerico o no, es decir entre el 0 y el 9
-bool control_numero(int num, int a, int b){
+int control_numero(int num, int a, int b){
     if(num >= a && num <= b){
-        return (true);
+        return 1;
     } else{
-        return (false);
+        return 0;
     }
 }
 
 //la funcion atoi nos va a transformar una cadena de caracteres en una variable de tipo entero
-int atoi(char *cad){
+int atoi(const char *cad) {
     int num_atoi = 0, pos = 1;
     int i = strlen(cad);
 

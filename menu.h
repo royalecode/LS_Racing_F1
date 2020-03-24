@@ -8,8 +8,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "funciones_Basicas.h"
+#define MAX 25
 
 void printarMenu();
-int leerOpcion();
+int leer_opcion();
 
 #endif //GRUPO_4_MENU_H

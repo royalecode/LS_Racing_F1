@@ -19,10 +19,10 @@ int leer_opcion(){
     if(strcmp(cad,"exit") == 0) {
          return opcion = -1;
     }else {
-        if(control_numero(atoi(cad), 1, 4) == true){
+        if(control_numero(atoi(cad), 1, 4)){
             return opcion = atoi(cad);
         }else {
-            while (control_numero(atoi(cad), 1, 4) == false) {
+            while (!(control_numero(atoi(cad), 1, 4))) {
                 printf("\nError. Opcion no valida.\n");
                 printarMenu();
                 scanf("%s", cad);
