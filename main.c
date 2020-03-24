@@ -4,9 +4,7 @@
 
 int main(void){
     //sha dafegir les llibreries alegro
-    char cadena[10];
-    LS_allegro_init(200,300,cadena);
-    int nSortir = 0, opcion = 0;
+    int nSortir = 0, opcion = 100;
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");
@@ -27,8 +25,9 @@ int main(void){
         LS_allegro_clear_and_paint(BLACK);
 
         printf("Bienvenidos a LS Racing!\n");
-        while(opcion!=-1){
-            printarMenu();
+        printarMenu();
+        while(opcion != 0){
+
             opcion = leer_opcion();
             switch (opcion){
                 case 1:
@@ -47,7 +46,7 @@ int main(void){
                     //antes funciones de opcion 4
                     printarMenu();
                     break;
-                case -1:
+                case 0:
                     printf("\nHasta Pronto!\n");
                     break;
             }
