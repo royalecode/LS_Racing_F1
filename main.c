@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include "LS_allegro.h"
 #include "menu.h"
+#include "conf_Coche.h"
+#include "tipos.h"
 
 int main(void){
     //sha dafegir les llibreries alegro
-    int nSortir = 0, opcion = 100;
+    int nSortir = 0, opcion = 100, controlador = 0;
+    Corredor piloto;
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");
@@ -27,12 +30,14 @@ int main(void){
         printf("Bienvenidos a LS Racing!\n");
         printarMenu();
         while(opcion != 0){
-
             opcion = leer_opcion();
             switch (opcion){
                 case 1:
-                    //antes funciones de opcion 1
-                    printarMenu();
+                    if(controlador==0) {
+                        leerPiloto(&piloto);
+                        printarMenu();
+                    }
+                    controlador = 1;
                     break;
                 case 2:
                     //antes funciones de opcion 2
@@ -48,12 +53,13 @@ int main(void){
                     break;
                 case 0:
                     printf("\nHasta Pronto!\n");
+                    nSortir = 1;
                     break;
             }
         }
     }
 
-
+    printf("hola\n");
     //Tanquem la finestra gràfica
     LS_allegro_exit();
 

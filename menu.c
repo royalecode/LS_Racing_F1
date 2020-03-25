@@ -12,27 +12,33 @@ void printarMenu(){
     printf("Que opcion quieres ejecutar? ");
 }
 
-int leer_opcion(){
-    char cad[MAX], cad2 = "exit";
-    int opcion = 0, at_exit;
+int leer_opcion() {
+    char cad[MAX];
+    int op, controlador = 0;
+
     fgets(cad, MAX, stdin);
-    cad[strlen(cad-1)] = '\0';
-    at_exit = atoi("exit");
-    //printf("%d", at_exit);
-    if(atoi(cad) == at_exit && strlen(cad) > 1) {
-        return 0;
-    }else {
-        if(control_numero(atoi(cad), 1, 4)){
-            return opcion = atoi(cad);
-        }else {
-            while (!control_numero(atoi(cad), 1, 4)) {
-                printf("\nError. Opcion no valida.\n");
-                printarMenu();
-                fgets(cad, MAX, stdin);
-                cad[strlen(cad-1)] = '\0';
-                opcion = atoi(cad);
+    if((strcmp(cad,"exit\n"))==0){
+        cad[strlen(cad-1)]='\0';
+        op = 0;
+    } else {
+        cad[strlen(cad-1)]='\0';
+        op = atoi(cad);
+        printf("%d\n", op);
+        while ((control_numero(op, 1, 4)) != 1  && controlador == 0) {
+            printf("\nError. Opcion no valida.\n");
+            printarMenu();
+            fgets(cad, MAX, stdin);
+            if((strcmp(cad,"exit\n"))==0) {
+                cad[strlen(cad-1)]='\0';
+                op = 0;
+                controlador = 1;
+            }else {
+                cad[strlen(cad-1)]='\0';
+                op = atoi(cad);
             }
-            return opcion;
         }
     }
+
+    return op;
 }
+

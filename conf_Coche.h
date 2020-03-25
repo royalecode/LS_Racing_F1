@@ -5,9 +5,14 @@
 #ifndef GRUPO_4_CONF_COCHE_H
 #define GRUPO_4_CONF_COCHE_H
 
-leerPiloto();
-mostrarGaraje();
-escogerPieza();
-mostrarConfActual();
+#include <stdio.h>
+#include "tipos.h"
+#include <string.h>
+#include "funciones_Basicas.h"
+
+void leerPiloto(Corredor *piloto);
+//mostrarGaraje();
+//escogerPieza();
+//mostrarConfActual();
 
 #endif //GRUPO_4_CONF_COCHE_H

@@ -7,10 +7,11 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-int isNumber(char *str)
-int scanRange(int min, int max, char* msg, char* error);
-int atoi(const char *cad);
+int isNumber(char *str);
+int scanRange(int min, int max, char* msg);
+//int atoi(const char *cad);
 int control_numero(int num, int a, int b);
 
 #endif //GRUPO_4_FUNCIONES_BASICAS_H
