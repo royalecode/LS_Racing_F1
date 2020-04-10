@@ -4,7 +4,7 @@
 #include "conf_Coche.h"
 #include "tipos.h"
 
-int main(void){
+int main(int num_parametres, char** parametres){
     //sha dafegir les llibreries alegro
     int nSortir = 0, opcion = 100, controlador = 0;
     Corredor piloto;
@@ -27,29 +27,28 @@ int main(void){
         //Pintem la pantalla de la finestra gràfica
         LS_allegro_clear_and_paint(BLACK);
 
+
         printf("Bienvenidos a LS Racing!\n");
-        printarMenu();
         while(opcion != 0){
+            printarMenu();
             opcion = leer_opcion();
             switch (opcion){
                 case 1:
-                    if(controlador==0) {
+                    if(!controlador) {
                         leerPiloto(&piloto);
-                        printarMenu();
+                        controlador = 1;
+                    }else{
+                        printf("ERROR: El coche ya esta configruado.\n");
                     }
-                    controlador = 1;
                     break;
                 case 2:
                     //antes funciones de opcion 2
-                    printarMenu();
                     break;
                 case 3:
                     //antes funciones de opcion 3
-                    printarMenu();
                     break;
                 case 4:
                     //antes funciones de opcion 4
-                    printarMenu();
                     break;
                 case 0:
                     printf("\nHasta Pronto!\n");
@@ -59,7 +58,6 @@ int main(void){
         }
     }
 
-    printf("hola\n");
     //Tanquem la finestra gràfica
     LS_allegro_exit();
 

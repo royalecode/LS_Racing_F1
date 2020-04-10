@@ -18,12 +18,16 @@ int scanRange(int min, int max, char* msg){
     char line[100];
     int num = -100, err = 1;
     do{
-        printf("%s? ", msg);
+        printf("%s (%d-%d): ", msg, min, max);
         fgets(line, 100, stdin);
-        line[strlen(line-1)] = '\0';
-        num = atoi(line);
-        if(num >= min && num <= max) err = 0;
-        if (err == 1) printf("Error, el/los %s tiene que ser un entero entre %d y %d incluidos\n", msg, min, max);
+        if (strlen(line) > 1) {
+            line[strlen(line - 1)] = '\0';
+            num = atoi(line);
+            if (num >= min && num <= max) err = 0;
+        }
+        if (err == 1){
+            printf("ERROR: El valor '%s' tiene que ser un entero entre %d y %d incluidos\n", msg, min, max);
+        }
     }while (err == 1);
 
     return num;
@@ -31,9 +35,6 @@ int scanRange(int min, int max, char* msg){
 
 //funcion que mira si un caracter es numerico o no, es decir entre el 0 y el 9
 int control_numero(int num, int a, int b){
-    if(num >= a && num <= b){
-        return 1;
-    } else{
-        return 0;
-    }
+    if(num >= a && num <= b) return 1;
+    else return 0;
 }

@@ -23,7 +23,6 @@ int leer_opcion() {
     } else {
         cad[strlen(cad-1)]='\0';
         op = atoi(cad);
-        printf("%d\n", op);
         while ((control_numero(op, 1, 4)) != 1  && controlador == 0) {
             printf("\nError. Opcion no valida.\n");
             printarMenu();
