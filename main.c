@@ -3,11 +3,18 @@
 #include "menu.h"
 #include "conf_Coche.h"
 #include "tipos.h"
+#include "pieza.h"
+#include "premio.h"
 
 int main(int num_parametres, char** parametres){
     //sha dafegir les llibreries alegro
-    int nSortir = 0, opcion = 100, controlador = 0;
+    int nSortir = 0, opcion = 100, controlador = 0, i, j;
     Corredor piloto;
+    CategoriaPiezas categoriaPiezas;
+    Premios premios;
+
+    leerPiezas(parametres[1], &categoriaPiezas);
+    leerPremios(parametres[2], &premios);
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");

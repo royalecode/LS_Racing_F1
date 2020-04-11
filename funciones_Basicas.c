@@ -38,3 +38,23 @@ int control_numero(int num, int a, int b){
     if(num >= a && num <= b) return 1;
     else return 0;
 }
+
+int fscanfNumber(FILE* file){
+    char line[100];
+    fgets(line,100, file);
+    if (line[strlen(line)-1] == '\n') line[strlen(line)-1] = '\0';
+    return atoi(line);
+}
+
+float fscanfFloat(FILE* file){
+    char line[100];
+    float num;
+    fscanf(file, "%f", &num);
+    fgets(line,100, file);
+    return num;
+}
+
+void fscanfString(FILE* file, char* line){
+    fgets(line,25, file);
+    if (line[strlen(line)-1] == '\n') line[strlen(line)-1] = '\0';
+}
