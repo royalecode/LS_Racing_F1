@@ -5,16 +5,19 @@
 #include "tipos.h"
 #include "pieza.h"
 #include "premio.h"
+#include "corredores.h"
 
 int main(int num_parametres, char** parametres){
     //sha dafegir les llibreries alegro
-    int nSortir = 0, opcion = 100, controlador = 0, i, j;
+    int nSortir = 0, opcion = 100, controlador = 0, i, j, numOp2 = 0;
     Corredor piloto;
+    ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
     Premios premios;
 
     leerPiezas(parametres[1], &categoriaPiezas);
     leerPremios(parametres[2], &premios);
+    leerCorredores(parametres[3], &pilotos);
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");
@@ -34,34 +37,48 @@ int main(int num_parametres, char** parametres){
         //Pintem la pantalla de la finestra gràfica
         LS_allegro_clear_and_paint(BLACK);
 
-
-        printf("Bienvenidos a LS Racing!\n");
-        while(opcion != 0){
-            printarMenu();
-            opcion = leer_opcion();
-            switch (opcion){
-                case 1:
-                    if(!controlador) {
-                        leerPiloto(&piloto);
-                        controlador = 1;
-                    }else{
-                        printf("ERROR: El coche ya esta configruado.\n");
-                    }
-                    break;
-                case 2:
-                    //antes funciones de opcion 2
-                    break;
-                case 3:
-                    //antes funciones de opcion 3
-                    break;
-                case 4:
-                    //antes funciones de opcion 4
-                    break;
-                case 0:
-                    printf("\nHasta Pronto!\n");
-                    nSortir = 1;
-                    break;
+        if(num_parametres == 5) {
+            printf("Bienvenidos a LS Racing!\n");
+            while (opcion != 0) {
+                printarMenu();
+                opcion = leer_opcion();
+                switch (opcion) {
+                    case 1:
+                        if (!controlador) {
+                            leerPiloto(&piloto);
+                            controlador = 1;
+                        } else {
+                            printf("ERROR: El coche ya esta configruado.\n");
+                        }
+                        break;
+                    case 2:
+                        if(numOp2 < premios.numPremios && controlador!=1){
+                            printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2])->nombre);
+                            numOp2++;
+                        }else{
+                            if (controlador!=1){
+                                printf("Aun no has configurado el coche.\n");
+                            }else {
+                                printf("Ya has finalizado la temporada.\n");
+                            }
+                        }
+                        //antes funcione
+                        break;
+                    case 3:
+                        //antes funciones de opcion 3
+                        break;
+                    case 4:
+                        //antes funciones de opcion 4
+                        break;
+                    case 0:
+                        printf("\nHasta Pronto!\n");
+                        nSortir = 1;
+                        break;
+                }
             }
+        }else{
+            printf("Error. El programa tiene que recibir 4 argumentos.\n");
+            nSortir = 1;
         }
     }
 
