@@ -40,6 +40,7 @@ int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
         for (i = 0; i < categoriaPiezas->numeroCategorias; ++i) {
             leerCategoria(file, &categoriaPiezas->categorias[i]);
         }
+        fclose(file);
     }
     return err;
 }

@@ -32,6 +32,7 @@ int leerPremios(char* path, Premios *premios){
         for (i = 0; i < premios->numPremios; ++i) {
             leerPremio(file, &premios->premios[i]);
         }
+        fclose(file);
     }
     return err;
 }
