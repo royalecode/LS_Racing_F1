@@ -6,6 +6,7 @@
 #include "pieza.h"
 #include "premio.h"
 #include "corredores.h"
+#include "carrera.h"
 
 int main(int num_parametres, char** parametres){
     //sha dafegir les llibreries alegro
@@ -21,7 +22,9 @@ int main(int num_parametres, char** parametres){
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");
-
+    al_install_keyboard();
+    //falta el timer;
+    al_install_mouse();
 
     //Bucle infinit del joc
     while(!nSortir){
@@ -52,8 +55,9 @@ int main(int num_parametres, char** parametres){
                         }
                         break;
                     case 2:
-                        if(numOp2 < premios.numPremios && controlador!=1){
-                            printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2])->nombre);
+                        if(numOp2 < premios.numPremios && controlador==1){
+                            printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
+                            //cargarCarrera(&premios, numOp2);
                             numOp2++;
                         }else{
                             if (controlador!=1){
@@ -62,13 +66,16 @@ int main(int num_parametres, char** parametres){
                                 printf("Ya has finalizado la temporada.\n");
                             }
                         }
-                        //antes funcione
                         break;
                     case 3:
-                        //antes funciones de opcion 3
+                        if(numOp2 > 0){
+                            //llamara modulo clasificacion
+                        }else{
+                            printf("La temporada aun no ha empezado.\n");
+                        }
                         break;
                     case 4:
-                        //antes funciones de opcion 4
+                        //llamar modulo clasificacion
                         break;
                     case 0:
                         printf("\nHasta Pronto!\n");
