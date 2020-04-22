@@ -10,7 +10,7 @@
 #include "LS_allegro.h"
 #include "premio.h"
 
-void printarInfoCarrera();
+void printarInfoCarrera(Premios *premios, int num);
 void mostrarSemaforo();
 void mostrarCarrera();
 void controlPitStops();

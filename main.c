@@ -7,24 +7,24 @@
 #include "premio.h"
 #include "corredores.h"
 #include "carrera.h"
+#include "base.h"
 
 int main(int num_parametres, char** parametres){
-    //sha dafegir les llibreries alegro
+
     int nSortir = 0, opcion = 100, controlador = 0, i, j, numOp2 = 0;
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
     Premios premios;
+    Base base;
 
     leerPiezas(parametres[1], &categoriaPiezas);
     leerPremios(parametres[2], &premios);
     leerCorredores(parametres[3], &pilotos);
+    leerBase(parametres[4], &base);
 
     //Inicialitzem Allegro
     LS_allegro_init(800,600,"Projecte 2");
-    al_install_keyboard();
-    //falta el timer;
-    al_install_mouse();
 
     //Bucle infinit del joc
     while(!nSortir){
@@ -34,9 +34,7 @@ int main(int num_parametres, char** parametres){
             nSortir = 1;
         }
 
-        //Donem l'ordre d'escriure el text de benvinguda
         al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),140,100,0,"%s","Benvingut a Allegro! Prem ESC per sortir...");
-
         //Pintem la pantalla de la finestra gràfica
         LS_allegro_clear_and_paint(BLACK);
 
@@ -57,7 +55,7 @@ int main(int num_parametres, char** parametres){
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
-                            //cargarCarrera(&premios, numOp2);
+                            cargarCarrera(&premios, numOp2);
                             numOp2++;
                         }else{
                             if (controlador!=1){
@@ -82,17 +80,17 @@ int main(int num_parametres, char** parametres){
                         nSortir = 1;
                         break;
                 }
+                //LS_allegro_clear_and_paint(BLACK);
             }
         }else{
             printf("Error. El programa tiene que recibir 4 argumentos.\n");
             nSortir = 1;
         }
+        //LS_allegro_clear_and_paint(BLACK);
     }
 
     //Tanquem la finestra gràfica
     LS_allegro_exit();
-
-
 
     return 0;
 }

@@ -5,17 +5,8 @@
 #include "corredores.h"
 
 void leerCorredor(FILE *file, Corredores *corredor){
-    fscanfString(file, corredor->nombre);
-    corredor->dorsal = fscanfNumber(file);
-    fscanfString(file, corredor->escuderia);
-    corredor->velocidad = fscanfNumber(file);
-    corredor->aceleracion = fscanfNumber(file);
-    corredor->consumo = fscanfNumber(file);
-    corredor->fiabilidad = fscanfNumber(file);
-    corredor->reflejos = fscanfNumber(file);
-    corredor->cond_fisica = fscanfNumber(file);
-    corredor->temperamento = fscanfNumber(file);
-    corredor->gestion_neumaticos = fscanfNumber(file);
+    fread(corredor, sizeof(Corredores), 1, file);
+    //printf("%s\n", corredor->escuderia);
 }
 
 int leerCorredores(char* path, ConjuntoCorredores *pilotos){
@@ -23,7 +14,7 @@ int leerCorredores(char* path, ConjuntoCorredores *pilotos){
     char line[1000];
     int i, err = 0;
 
-    file = fopen(path, "r");
+    file = fopen(path, "rb");
     if (file == NULL){
         printf("ERROR: El fichero de corredores '%s' no es accesible.\n", path);
         err = 1;
