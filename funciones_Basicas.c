@@ -7,7 +7,7 @@
 // Comproba si tots els elements d'una string son numeros
 int isNumber(char *str){
     int i;
-    for (i = 0; i < strlen(str-1) ; ++i) {
+    for (i = 0; i < strlen(str) ; ++i) {
         if(str[i] < '0' || str[i] > '9') return 0;
     }
     return 1;
@@ -21,9 +21,11 @@ int scanRange(int min, int max, char* msg){
         printf("%s (%d-%d): ", msg, min, max);
         fgets(line, 100, stdin);
         if (strlen(line) > 1) {
-            line[strlen(line - 1)] = '\0';
+            line[strlen(line)-1] = '\0';
             num = atoi(line);
-            if (num >= min && num <= max) err = 0;
+            if(isNumber(line)) {
+                if (num >= min && num <= max) err = 0;
+            }
         }
         if (err == 1){
             printf("ERROR: El valor '%s' tiene que ser un entero entre %d y %d incluidos\n", msg, min, max);
