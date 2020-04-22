@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "LS_allegro.h"
 #include "premio.h"
+#include <time.h>
 
 void printarInfoCarrera(Premios *premios, int num);
 void mostrarSemaforo();

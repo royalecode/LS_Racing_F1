@@ -32,6 +32,7 @@ void printarInfoCarrera(Premios *premios, int num){
 void mostrarSemaforo(){
     int i, j, x1 = 100, y1 = 100, x2 = 170, y2 = 300, cx = 135, cy = 125, r = 18;
     //printf("Hola vamos a printar el semaforo\n");
+    float t1, t0, k = 1.0;
     LS_allegro_clear_and_paint(WHITE);
     for(i=0; i<5; i++){
         al_draw_filled_rectangle(x1,y1,x2,y2,LS_allegro_get_color(BLACK));
@@ -45,6 +46,22 @@ void mostrarSemaforo(){
         cy = 125;
     }
     LS_allegro_clear_and_paint(WHITE);
+    /*t0 = (float) clock();
+    i=0;
+    cx = 135;
+    while(i<5){
+        cy = 225;
+        t1 = (float) clock();
+        if( ((t1-t0) / (float)CLOCKS_PER_SEC) >= 1.0) {
+            al_draw_filled_circle(cx, cy, r, LS_allegro_get_color(RED));
+            cy = cy + 50;
+            al_draw_filled_circle(cx, cy, r, LS_allegro_get_color(RED));
+            t0 = (float) clock();
+            i++;
+        }
+        cx = cx + 80;
+    }
+    //LS_allegro_clear_and_paint(WHITE);*/
 }
 void mostrarCarrera(){
 
