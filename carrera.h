@@ -24,7 +24,7 @@ typedef struct{
 
 void printarInfoCarrera(Premios *premios, int num);
 void mostrarSemaforo(int vermelles);
-void mostrarCarrera();
+void mostrarCarrera(Corredor *piloto, Tiempos *tiempos);
 void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num);
 void mostrarFinalCarrera();
 void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num);
