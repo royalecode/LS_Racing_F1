@@ -17,6 +17,7 @@ int main(int num_parametres, char** parametres){
     CategoriaPiezas categoriaPiezas;
     Premios premios;
     Base base;
+    Tiempos *tiempos;
 
     leerPiezas(parametres[1], &categoriaPiezas);
     leerPremios(parametres[2], &premios);
@@ -24,7 +25,7 @@ int main(int num_parametres, char** parametres){
     leerBase(parametres[4], &base);
 
     //Inicialitzem Allegro
-    LS_allegro_init(800,600,"Projecte 2");
+    LS_allegro_init(1000,600,"Projecte 2");
 
     //Bucle infinit del joc
     while(!nSortir){
@@ -55,7 +56,7 @@ int main(int num_parametres, char** parametres){
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
-                            cargarCarrera(&premios, &pilotos, numOp2);
+                            cargarCarrera(&premios, &pilotos, tiempos, numOp2);
                             numOp2++;
                         }else{
                             if (controlador!=1) printf("Aun no has configurado el coche.\n");

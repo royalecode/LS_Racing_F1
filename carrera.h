@@ -23,8 +23,8 @@ void printarInfoCarrera(Premios *premios, int num);
 void mostrarSemaforo();
 void mostrarCarrera();
 void controlPitStops();
-void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, int num);
+void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, int num);
 void mostrarFinalCarrera();
-void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, int num);
+void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, int num);
 
 #endif //GRUPO_4_CARRERA_H

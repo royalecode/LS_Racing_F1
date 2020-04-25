@@ -4,9 +4,9 @@
 
 #include "carrera.h"
 
-void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, int num){
+void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, int num){
     printarInfoCarrera(premios, num);
-    calcularTiempo(pilotos, premios, num);
+    calcularTiempo(pilotos, premios, tiempos, num);
 }
 void printarInfoCarrera(Premios *premios, int num){
     int err = 0;
@@ -64,41 +64,47 @@ void mostrarSemaforo(){
     //LS_allegro_clear_and_paint(WHITE);*/
 }
 
-void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, int num){
-    int i, tiempo_base_seg, diferencias, num_pit_stops, coef_habilidad;
-    Tiempos *tiempo;
-    tiempo = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos->num_corredors + 1));
+void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, int num){
+    int i, tiempo_base_seg, diferencias, num_pit_stops, coef_habilidad, pixeles_linea = 700;
+    //Tiempos *tiempo;
+    tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos->num_corredors + 1));
     tiempo_base_seg = (premios->premios[num].tiempoBase)*60;
     num_pit_stops = premios->premios[num].numPitStop;
 
     printf("%d seg base\n", tiempo_base_seg);
     for(i=0; i < pilotos->num_corredors; i++){
-        tiempo->dorsal = pilotos->corredores[i].dorsal;
+        printf("%s piloto", pilotos->corredores[i].nombre);
+        tiempos[i].dorsal = pilotos->corredores[i].dorsal;
 
         diferencias = ((abs(premios->premios[num].velocidad - pilotos->corredores[i].velocidad) +
                 abs(premios->premios[num].aceleracion - pilotos->corredores[i].aceleracion) +
                 abs(premios->premios[num].consumo - pilotos->corredores[i].consumo) +
                 abs(premios->premios[num].fiabilidad - pilotos->corredores[i].fiabilidad)));
-        tiempo->tiempo_carrera = tiempo_base_seg + diferencias;
-        printf("%d tiempo carrera\n", tiempo->tiempo_carrera);
+        tiempos[i].tiempo_carrera = tiempo_base_seg + diferencias;
+        printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
 
         if(pilotos->corredores[i].consumo < premios->premios[num].consumo){
             num_pit_stops--;
-            tiempo->tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
-            tiempo->tiempo_carrera = tiempo->tiempo_carrera + tiempo->tiempo_stops;
+            tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+            tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
         }else if(pilotos->corredores[i].consumo > premios->premios[num].consumo){
             num_pit_stops++;
-            tiempo->tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
-            tiempo->tiempo_carrera = tiempo->tiempo_carrera + tiempo->tiempo_stops;
+            tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+            tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
         }else{
-            tiempo->tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
-            tiempo->tiempo_carrera = tiempo->tiempo_carrera + tiempo->tiempo_stops;
+            tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+            tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
         }
-        printf("%d tiempo carrera\n", tiempo->tiempo_carrera);
+        printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
         coef_habilidad = ((pilotos->corredores[i].reflejos + pilotos->corredores[i].cond_fisica +
                 pilotos->corredores[i].temperamento + pilotos->corredores[i].gestion_neumaticos)/4)/2;
         printf("%d coef hability\n", coef_habilidad);
+        tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera - coef_habilidad;
+        printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
+
+        tiempos[i].pixels_seg = pixeles_linea/tiempos[i].tiempo_carrera;
     }
+    printf("el valor de i %d\n", i);
 }
 void mostrarCarrera(){
 
