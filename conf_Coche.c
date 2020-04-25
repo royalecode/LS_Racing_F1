@@ -20,10 +20,24 @@ void leerPiloto(Corredor *piloto){
     printf("\nCargando configurador...\n");
 }
 
-/*mostrarGaraje(){
+void mostrarGaraje(){
+    BITMAP* garaje;
+    BITMAP* fondo;
+    garaje = al_load_bitmap("../imgs/boxes.png");
+    fondo = al_create_bitmap(1000,1000);
+    al_draw_scaled_bitmap(garaje,0,0,0);
+    al_flip_display();
+    blit()
 
+    while (true);
+
+
+
+
+    al_destroy_bitmap(garaje);
 }
 
+/*
 escogerPieza(){
 
 }

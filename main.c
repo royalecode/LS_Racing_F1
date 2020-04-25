@@ -49,7 +49,7 @@ int main(int num_parametres, char** parametres){
                             leerPiloto(&piloto);
                             controlador = 1;
                         } else {
-                            printf("ERROR: El coche ya esta configruado.\n");
+                            mostrarGaraje();
                         }
                         break;
                     case 2:
@@ -58,19 +58,14 @@ int main(int num_parametres, char** parametres){
                             cargarCarrera(&premios, numOp2);
                             numOp2++;
                         }else{
-                            if (controlador!=1){
-                                printf("Aun no has configurado el coche.\n");
-                            }else {
-                                printf("Ya has finalizado la temporada.\n");
-                            }
+                            if (controlador!=1) printf("Aun no has configurado el coche.\n");
+                            else printf("Ya has finalizado la temporada.\n");
                         }
                         break;
                     case 3:
                         if(numOp2 > 0){
                             //llamara modulo clasificacion
-                        }else{
-                            printf("La temporada aun no ha empezado.\n");
-                        }
+                        }else printf("La temporada aun no ha empezado.\n");
                         break;
                     case 4:
                         //llamar modulo clasificacion

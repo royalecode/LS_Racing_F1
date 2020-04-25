@@ -9,9 +9,10 @@
 #include "tipos.h"
 #include <string.h>
 #include "funciones_Basicas.h"
+#include "LS_allegro.h"
 
 void leerPiloto(Corredor *piloto);
-//mostrarGaraje();
+void mostrarGaraje();
 //escogerPieza();
 //mostrarConfActual();
 
