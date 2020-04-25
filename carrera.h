@@ -11,20 +11,22 @@
 #include "premio.h"
 #include <time.h>
 #include "corredores.h"
+#include "tipos.h"
 
 typedef struct{
     int tiempo_carrera;
     int tiempo_stops;
     int pixels_seg;
     int dorsal;
+    int num_stops;
 }Tiempos;
 
 void printarInfoCarrera(Premios *premios, int num);
 void mostrarSemaforo();
 void mostrarCarrera();
 void controlPitStops();
-void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, int num);
+void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num);
 void mostrarFinalCarrera();
-void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, int num);
+void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num);
 
 #endif //GRUPO_4_CARRERA_H

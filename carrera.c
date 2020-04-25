@@ -4,9 +4,9 @@
 
 #include "carrera.h"
 
-void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, int num){
+void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num){
     printarInfoCarrera(premios, num);
-    calcularTiempo(pilotos, premios, tiempos, num);
+    calcularTiempo(pilotos, premios, tiempos, piloto, num);
 }
 void printarInfoCarrera(Premios *premios, int num){
     int err = 0;
@@ -64,7 +64,7 @@ void mostrarSemaforo(){
     //LS_allegro_clear_and_paint(WHITE);*/
 }
 
-void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, int num){
+void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num){
     int i, tiempo_base_seg, diferencias, num_pit_stops, coef_habilidad, pixeles_linea = 700;
     //Tiempos *tiempo;
     tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos->num_corredors + 1));
@@ -104,8 +104,42 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
 
         tiempos[i].pixels_seg = pixeles_linea/tiempos[i].tiempo_carrera;
     }
+    //añadimos al struct tiempo en la ultima posicion los calculos para nuestro propio piloto
+    i++;
     printf("el valor de i %d\n", i);
+    printf("%s piloto propio\n", piloto->nombre);
+    tiempos[i].dorsal = piloto->dorsal;
+    diferencias = ((abs(premios->premios[num].velocidad - piloto->velocidad) + abs(premios->premios[num].aceleracion - piloto->aceleracion) +
+            abs(premios->premios[num].consumo - piloto->consumo) + abs(premios->premios[num].fiabilidad - piloto->fiabilidad)));
+    tiempos[i].tiempo_carrera = tiempo_base_seg + diferencias;
+    printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);;
+
+    if(piloto->consumo < premios->premios[num].consumo){
+        num_pit_stops--;
+        tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+        tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
+        tiempos[i].num_stops = num_pit_stops;
+    }else if(piloto->consumo > premios->premios[num].consumo){
+        num_pit_stops++;
+        tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+        tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
+        tiempos[i].num_stops = num_pit_stops;
+    }else{
+        tiempos[i].tiempo_stops = (premios->premios[num].tiempoPitStop * num_pit_stops);
+        tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera + tiempos[i].tiempo_stops;
+        tiempos[i].num_stops = num_pit_stops;
+    }
+    printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
+
+    coef_habilidad = ((piloto->reflejos + piloto->cond_fisica + piloto->temperamento + piloto->gestion_neumaticos)/4)/2;
+    printf("%d coef hability\n", coef_habilidad);
+    tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera - coef_habilidad;
+    printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
+
+    tiempos[i].pixels_seg = pixeles_linea/(tiempos[i].tiempo_carrera - tiempos[i].tiempo_stops);
+    printf("%d pixeles por segundo\n", tiempos[i].pixels_seg);
 }
+
 void mostrarCarrera(){
 
 }

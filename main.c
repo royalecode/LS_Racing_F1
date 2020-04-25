@@ -56,7 +56,7 @@ int main(int num_parametres, char** parametres){
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
-                            cargarCarrera(&premios, &pilotos, tiempos, numOp2);
+                            cargarCarrera(&premios, &pilotos, tiempos, &piloto, numOp2);
                             numOp2++;
                         }else{
                             if (controlador!=1) printf("Aun no has configurado el coche.\n");
