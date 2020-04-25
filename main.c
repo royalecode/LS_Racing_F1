@@ -50,7 +50,7 @@ int main(int num_parametres, char** parametres){
                             leerPiloto(&piloto);
                             controlador = 1;
                         } else {
-                            mostrarGaraje();
+                            mostrarGaraje(&piloto, categoriaPiezas);
                         }
                         break;
                     case 2:

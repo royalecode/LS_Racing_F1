@@ -8,11 +8,12 @@
 #include <stdio.h>
 #include "tipos.h"
 #include <string.h>
+#include "pieza.h"
 #include "funciones_Basicas.h"
 #include "LS_allegro.h"
 
 void leerPiloto(Corredor *piloto);
-void mostrarGaraje();
+void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas);
 //escogerPieza();
 //mostrarConfActual();
 
