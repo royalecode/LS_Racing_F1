@@ -12,6 +12,7 @@
 #include <time.h>
 #include "corredores.h"
 #include "tipos.h"
+#include "tiempo.h"
 
 typedef struct{
     int tiempo_carrera;
@@ -22,9 +23,8 @@ typedef struct{
 }Tiempos;
 
 void printarInfoCarrera(Premios *premios, int num);
-void mostrarSemaforo();
+void mostrarSemaforo(int vermelles);
 void mostrarCarrera();
-void controlPitStops();
 void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num);
 void mostrarFinalCarrera();
 void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num);

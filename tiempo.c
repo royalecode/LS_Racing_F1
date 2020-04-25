@@ -4,7 +4,7 @@
 
 #include "tiempo.h"
 
-void sleep(int ms){
+void temporizador(int ms){
     float time = (float)ms / 1000;
     float clock1, clock2;
     clock1 = (float)clock();

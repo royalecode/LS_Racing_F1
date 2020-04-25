@@ -8,6 +8,6 @@
 #include <time.h>
 
 
-void sleep(int ms);
+void temporizador(int ms);
 
 #endif //GRUPO_4_TIEMPO_H
