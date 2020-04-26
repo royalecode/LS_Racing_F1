@@ -69,6 +69,7 @@ int main(int num_parametres, char** parametres){
                         break;
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){
+                            LS_allegro_clear_and_paint(BLACK);
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
                             cargarCarrera(&premios, &pilotos, tiempos, &piloto, numOp2);
                             numOp2++;
