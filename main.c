@@ -18,11 +18,18 @@ int main(int num_parametres, char** parametres){
     Premios premios;
     Base base;
     Tiempos *tiempos;
+    Pieza *confCoche;
 
     leerPiezas(parametres[1], &categoriaPiezas);
     leerPremios(parametres[2], &premios);
     leerCorredores(parametres[3], &pilotos);
     leerBase(parametres[4], &base);
+
+    confCoche = (Pieza *) malloc(sizeof(Pieza) * categoriaPiezas.numeroCategorias);
+
+    for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
+        confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
+    }
 
     //Inicialitzem Allegro
     LS_allegro_init(1000,600,"Projecte 2");
@@ -50,7 +57,14 @@ int main(int num_parametres, char** parametres){
                             leerPiloto(&piloto);
                             controlador = 1;
                         }
-                        mostrarGaraje(&piloto, categoriaPiezas);
+                        mostrarGaraje(&piloto, categoriaPiezas, confCoche);
+                        for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
+                            printf("\n%s", confCoche[i].nombre);
+                            printf("\n\t%d", confCoche[i].fiabilidad);
+                            printf("\n\t%d", confCoche[i].consumo);
+                            printf("\n\t%d", confCoche[i].aceleracion);
+                            printf("\n\t%d", confCoche[i].velocidad);
+                        }
 
                         break;
                     case 2:
@@ -84,6 +98,8 @@ int main(int num_parametres, char** parametres){
         }
         //LS_allegro_clear_and_paint(BLACK);
     }
+
+    free(confCoche);
 
     //Tanquem la finestra gràfica
     LS_allegro_exit();

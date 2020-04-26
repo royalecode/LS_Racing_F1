@@ -13,8 +13,10 @@
 #include "funciones_Basicas.h"
 #include "LS_allegro.h"
 
+
+
 void leerPiloto(Corredor *piloto);
-void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas);
+void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza* piezas);
 //escogerPieza();
 //mostrarConfActual();
 
