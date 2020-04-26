@@ -49,9 +49,9 @@ int main(int num_parametres, char** parametres){
                         if (!controlador) {
                             leerPiloto(&piloto);
                             controlador = 1;
-                        } else {
-                            mostrarGaraje(&piloto, categoriaPiezas);
                         }
+                        mostrarGaraje(&piloto, categoriaPiezas);
+
                         break;
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){

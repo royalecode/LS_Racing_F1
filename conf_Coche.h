@@ -6,6 +6,7 @@
 #define GRUPO_4_CONF_COCHE_H
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "tipos.h"
 #include <string.h>
 #include "pieza.h"
