@@ -8,10 +8,10 @@ void leerPiloto(Corredor *piloto) {
     char msg[MAX_CHAR];//, error[MAX_CHAR];
     printf("\nNombre del piloto: ");
     fgets((*piloto).nombre, MAX_CHAR, stdin);
-    (*piloto).nombre[strlen((*piloto).nombre - 1)] = '\0';
+    (*piloto).nombre[strlen((*piloto).nombre) - 1] = '\0';
     printf("Nombre de la escuderia: ");
     fgets((*piloto).escuderia, MAX_CHAR, stdin);
-    (*piloto).escuderia[strlen((*piloto).escuderia - 1)] = '\0';
+    (*piloto).escuderia[strlen((*piloto).escuderia) - 1] = '\0';
     (*piloto).dorsal = scanRange(1, 99, "Dorsal");
     (*piloto).reflejos = scanRange(0, 10, "Reflejos");
     (*piloto).cond_fisica = scanRange(0, 10, "Condicion fisica");
@@ -124,6 +124,23 @@ void printGaraje(Pieza *piezas, CategoriaPiezas categoriaPiezas, int ic, int ip)
     al_destroy_bitmap(garaje);
 }
 
+void setInfoPiloto (Corredor *piloto, Pieza *piezas, int categorias){
+    int i;
+
+    piloto->fiabilidad = 0;
+    piloto->consumo = 0;
+    piloto->aceleracion = 0;
+    piloto->velocidad = 0;
+
+    for (i = 0; i < categorias; ++i) {
+        piloto->fiabilidad += piezas[i].fiabilidad;
+        piloto->consumo += piezas[i].consumo;
+        piloto->aceleracion += piezas[i].aceleracion;
+        piloto->velocidad += piezas[i].velocidad;
+    }
+
+}
+
 void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *piezas) {
     int i, ic = 0, ip = 0;
     int exit = 0;
@@ -162,13 +179,7 @@ void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *pie
         }
     }
 
-//    for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
-//        printf("\n%s", piezas[i].nombre);
-//        printf("\n\t%d", piezas[i].fiabilidad);
-//        printf("\n\t%d", piezas[i].consumo);
-//        printf("\n\t%d", piezas[i].aceleracion);
-//        printf("\n\t%d", piezas[i].velocidad);
-//    }
+    setInfoPiloto(piloto,  piezas, categoriaPiezas.numeroCategorias);
 }
 
 /*
