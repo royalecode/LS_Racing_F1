@@ -68,7 +68,7 @@ void mostrarSemaforo(int vermelles){
 void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num){
     int i, tiempo_base_seg, diferencias, num_pit_stops, coef_habilidad, pixeles_linea = 700;
     //Tiempos *tiempo;
-    tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos->num_corredors + 1));
+    //tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos->num_corredors + 1));
     tiempo_base_seg = (premios->premios[num].tiempoBase)*60;
     num_pit_stops = premios->premios[num].numPitStop;
     printf("%d pit stops por grna premio\n", num_pit_stops);
@@ -104,6 +104,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
         //printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
 
         tiempos[i].pixels_seg = pixeles_linea/tiempos[i].tiempo_carrera;
+        printf("%d pixeles por segundo\n", tiempos[i].pixels_seg);
     }
     //añadimos al struct tiempo en la ultima posicion los calculos para nuestro propio piloto
     printf("la i vale tanto %d --\n", i);
@@ -137,18 +138,21 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
     coef_habilidad = ((piloto->reflejos + piloto->cond_fisica + piloto->temperamento + piloto->gestion_neumaticos)/4)/2;
     //printf("%d coef hability\n", coef_habilidad);
     tiempos[i].tiempo_carrera = tiempos[i].tiempo_carrera - coef_habilidad;
-    //printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
+    printf("%d tiempo carrera\n", tiempos[i].tiempo_carrera);
 
     tiempos[i].pixels_seg = pixeles_linea/(tiempos[i].tiempo_carrera - tiempos[i].tiempo_stops);
     printf("%d pixeles por segundo\n", tiempos[i].pixels_seg);
 }
 
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
-    int num_stops = 0, i, y_dorsal = 30, y_line = 37, y_car = 18;
+    int num_stops = 0, i, y_dorsal, y_line , y_car , seg = 0;
+    int x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
+    printf("%d tiempo carrera\n", tiempos[7].tiempo_carrera);
+    printf("%d pixeles segundo nueto pilot\n", tiempos[7].pixels_seg);
     /*printf("%d esto es el dorssl\n", piloto->dorsal);
-    printf("%d numero stops\n", tiempos[7].num_stops);
+    printf("%d tiempo carrera\n", tiempos[7].tiempo_carrera);
     printf("%d numero drosal\n", tiempos[7].dorsal);
     printf("%s nombre\n", piloto->nombre);
     printf("%s nombre\n", piloto->escuderia);
@@ -157,46 +161,59 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
     printf("%d nombre\n", piloto->consumo);
     printf("%d nombre\n", piloto->fiabilidad);
     printf("%d stops----\n", num_stops);*/
-
-    LS_allegro_clear_and_paint(BLACK);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,20,0,"%s","PILOT");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,40,0,"%s"," NOM");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,60,0," %s", piloto->nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,80,0,"%s"," ESCUDERIA");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,100,0," %s ", piloto->escuderia);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,120,0,"%s"," DORSAL");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,140,0," %d ", piloto->dorsal);
-
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,160,0,"%s","COTXE");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,180,0,"%s"," VELOCITAT");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,200,0," %d ", piloto->velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,220,0,"%s"," ACCELERACIO");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,240,0," %d ", piloto->aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,260,0,"%s"," CONSUM");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,280,0," %d ", piloto->consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,300,0,"%s"," FIABILITAT");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(YELLOW),800,320,0," %d ", piloto->fiabilidad);
-
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),800,565,0,"%s","STOPS:    / ");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),880,565,0,"%d", num_stops);
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),960,565,0,"%d", tiempos[7].num_stops);
-
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),10,565,0,"%s","RADIO (R)");
-    al_draw_textf(LS_allegro_get_font(NORMAL),LS_allegro_get_color(WHITE),640,565,0,"%s","PIT STOP (P)");
-    al_draw_filled_rectangle(0,0,790,545, LS_allegro_get_color(WHITE));
-    al_draw_line(790,530,790,600,LS_allegro_get_color(WHITE),1);
-    al_draw_line(0,0,790,0,LS_allegro_get_color(BLACK), 2);
-
-    for(i=0; i < NUM_PILOTS; i++){
-        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal ,0, "%d", piloto->dorsal);
-        al_draw_line(80, y_line, 750, y_line, LS_allegro_get_color(BLACK), 3);
-        al_draw_scaled_bitmap(cotxe, 0, 0, 70, 30, 60, y_car, 70, 30, 0);
-        y_dorsal = y_dorsal + 65;
-        y_car = y_car + 65;
-        y_line = y_line + 65;
+    for (i = 0; i < NUM_PILOTS; i++) {
+        x_car[i] = 60;
     }
+   // printf("%d pixeles xcar de pioloto", x_car[7]);
+    while(seg <= 75) {
+        y_dorsal = 30, y_line = 37, y_car = 18;
+        LS_allegro_clear_and_paint(BLACK);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", "PILOT");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", " NOM");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 60, 0, " %s", piloto->nombre);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 80, 0, "%s", " ESCUDERIA");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 100, 0, " %s ", piloto->escuderia);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", " DORSAL");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 140, 0, " %d ", piloto->dorsal);
 
-    LS_allegro_clear_and_paint(BLACK);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 160, 0, "%s", "COTXE");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", " VELOCITAT");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 200, 0, " %d ",piloto->velocidad);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 220, 0, "%s", " ACCELERACIO");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 240, 0, " %d ",piloto->aceleracion);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 260, 0, "%s", " CONSUM");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 280, 0, " %d ", piloto->consumo);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", " FIABILITAT");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 320, 0, " %d ",piloto->fiabilidad);
+
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 565, 0, "%s", "STOPS:    / ");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 880, 565, 0, "%d", num_stops);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 960, 565, 0, "%d",tiempos[7].num_stops);
+
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 10, 565, 0, "%s", "RADIO (R)");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 640, 565, 0, "%s", "PIT STOP (P)");
+        al_draw_filled_rectangle(0, 0, 790, 545, LS_allegro_get_color(WHITE));
+        al_draw_line(790, 530, 790, 600, LS_allegro_get_color(WHITE), 1);
+        al_draw_line(0, 0, 790, 0, LS_allegro_get_color(BLACK), 2);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 890, 400, 0 , "%d", seg);
+
+        for (i = 0; i < NUM_PILOTS; i++) {
+            al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d",
+                          piloto->dorsal);
+            al_draw_line(80, y_line, 750, y_line, LS_allegro_get_color(BLACK), 3);
+            al_draw_scaled_bitmap(cotxe, 0, 0, 70, 30, x_car[i], y_car, 70, 30, 0);
+            y_dorsal = y_dorsal + 65;
+            if(x_car[i]<690) {
+                x_car[i] = x_car[i] + tiempos[i].pixels_seg;
+            }
+            y_car = y_car + 65;
+            y_line = y_line + 65;
+        }
+        //("%d actualiado\n", x_car[7]);
+        LS_allegro_clear_and_paint(BLACK);
+        temporizador(1000);
+        seg++;
+    }
 }
 
 void mostrarFinalCarrera(){

@@ -26,7 +26,7 @@ int main(int num_parametres, char **parametres) {
     leerBase(parametres[4], &base);
 
     confCoche = (Pieza *) malloc(sizeof(Pieza) * categoriaPiezas.numeroCategorias);
-
+    tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos.num_corredors + 1));
     for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
         confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
     }
