@@ -29,5 +29,6 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos);
 void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num);
 void mostrarFinalCarrera(Corredor *piloto, int posicion);
 void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num);
+void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops);
 
 #endif //GRUPO_4_CARRERA_H
