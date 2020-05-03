@@ -145,22 +145,13 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
 }
 
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
-    int num_stops = 0, i, y_dorsal, y_line , y_car , seg = 0;
+    int num_stops = 0, i, y_dorsal, y_line , y_car , seg = 0, stop_valido = 0, posicion = 1;
     int x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
     printf("%d tiempo carrera\n", tiempos[7].tiempo_carrera);
     printf("%d pixeles segundo nueto pilot\n", tiempos[7].pixels_seg);
-    /*printf("%d esto es el dorssl\n", piloto->dorsal);
-    printf("%d tiempo carrera\n", tiempos[7].tiempo_carrera);
-    printf("%d numero drosal\n", tiempos[7].dorsal);
-    printf("%s nombre\n", piloto->nombre);
-    printf("%s nombre\n", piloto->escuderia);
-    printf("%d nombre\n", piloto->velocidad);
-    printf("%d nombre\n", piloto->aceleracion);
-    printf("%d nombre\n", piloto->consumo);
-    printf("%d nombre\n", piloto->fiabilidad);
-    printf("%d stops----\n", num_stops);*/
+
     for (i = 0; i < NUM_PILOTS; i++) {
         x_car[i] = 60;
     }
@@ -185,6 +176,17 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 280, 0, " %d ", piloto->consumo);
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", " FIABILITAT");
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 320, 0, " %d ",piloto->fiabilidad);
+
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_R)){
+            stop_valido = 1;
+        }
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_P)){
+            //if(num_stops == tiempos[7].num_stops)
+                if(stop_valido == 1){
+                    num_stops++;
+                    stop_valido = 0;
+                }
+        }
 
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 565, 0, "%s", "STOPS:    / ");
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 880, 565, 0, "%d", num_stops);
@@ -214,8 +216,26 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
         temporizador(1000);
         seg++;
     }
+
+    if(num_stops < tiempos[7].num_stops){
+        tiempos[7].tiempo_carrera = tiempos[7].tiempo_carrera + (5 * tiempos[7].tiempo_stops);
+    }
+
+    mostrarFinalCarrera(piloto, posicion);
 }
 
-void mostrarFinalCarrera(){
-
+void mostrarFinalCarrera(Corredor *piloto, int posicion){
+    int err = 0;
+    LS_allegro_clear_and_paint(BLACK);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 420, 250, 0, "%s", piloto->nombre);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 280, 0, "%s", "HA FINALITZAT");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 470, 280, 0, "%s", "EN LA POSICIO");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 635, 280, 0, "%d", posicion);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 350, 0, "%s", "PULSA ENTER PER TORNAR AL MENU");
+    LS_allegro_clear_and_paint(BLACK);
+    while(err == 0){
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_ENTER)){
+            err = 1;
+        }
+    }
 }
