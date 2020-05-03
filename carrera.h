@@ -13,6 +13,7 @@
 #include "corredores.h"
 #include "tipos.h"
 #include "tiempo.h"
+#include <time.h>
 #define NUM_PILOTS 8
 
 typedef struct{

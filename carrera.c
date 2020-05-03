@@ -145,8 +145,9 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
 }
 
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
-    int num_stops = 0, i, y_dorsal, y_line , y_car , seg = 0, stop_valido = 0, posicion = 1;
-    int x_car[NUM_PILOTS];
+    float time = 0, _clock;
+    int num_stops = 0, i, y_dorsal, y_line , y_car , seg = 0, stop_valido = 0, posicion = 1, x_line = 670;
+    float x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
     //printf("%d tiempo carrera\n", tiempos[7].tiempo_carrera);
@@ -154,11 +155,14 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
     for (i = 0; i < NUM_PILOTS; i++) {
         x_car[i] = 60;
     }
-   // printf("%d pixeles xcar de pioloto", x_car[7]);
-    while(seg <= 75) {
-        y_dorsal = 30, y_line = 37, y_car = 18;
-        LS_allegro_clear_and_paint(BLACK);
 
+    _clock = clock();
+    LS_allegro_clear_and_paint(BLACK);
+
+    // printf("%d pixeles xcar de pioloto", x_car[7]);
+    while(time <= 75) {
+        y_dorsal = 30, y_line = 37, y_car = 18;
+        time = ((float)clock() - _clock) / 1000;
         if(LS_allegro_key_pressed(ALLEGRO_KEY_R)){
             stop_valido = 1;
         }
@@ -172,21 +176,21 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
 
         interfaz_graf_carrera(piloto, tiempos, num_stops);
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 890, 400, 0 , "%d", seg);
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 890, 420, 0 , "%.2f", time);
 
         for (i = 0; i < NUM_PILOTS; i++) {
             al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d", piloto->dorsal);
-            al_draw_line(80, y_line, 750, y_line, LS_allegro_get_color(BLACK), 3);
+            al_draw_line(80, y_line, 80 + x_line, y_line, LS_allegro_get_color(BLACK), 3);
             al_draw_scaled_bitmap(cotxe, 0, 0, 70, 30, x_car[i], y_car, 70, 30, 0);
             y_dorsal = y_dorsal + 65;
             if(x_car[i]<690) {
-                x_car[i] = x_car[i] + tiempos[i].pixels_seg;
+                x_car[i] = (time / tiempos[i].tiempo_carrera) * x_line + 60;
             }
             y_car = y_car + 65;
             y_line = y_line + 65;
         }
         //("%d actualiado\n", x_car[7]);
         LS_allegro_clear_and_paint(BLACK);
-        temporizador(1000);
         seg++;
     }
 
