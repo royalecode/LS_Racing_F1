@@ -18,7 +18,6 @@ void leerPremio(FILE *file, Premio *premio){
 
 int leerPremios(char* path, Premios *premios){
     FILE *file;
-    char line[1000];
     int i, err = 0;
 
     file = fopen(path, "r");

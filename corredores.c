@@ -11,7 +11,6 @@ void leerCorredor(FILE *file, Corredores *corredor){
 
 int leerCorredores(char* path, ConjuntoCorredores *pilotos){
     FILE *file;
-    char line[1000];
     int i, err = 0;
 
     file = fopen(path, "rb");

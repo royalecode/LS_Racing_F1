@@ -13,11 +13,18 @@
 #include "funciones_Basicas.h"
 #include "LS_allegro.h"
 
-
-
+/**
+ * Procedimiento que pide al usuario por terminal distintos datos del piloto
+ * @param piloto Esctructura donde guarda los datos
+ */
 void leerPiloto(Corredor *piloto);
+
+/**
+ * Procedimiento que engloba todo el garaje, desde sus controles hasta la gestion de los datos
+ * @param piloto            Estructura Piloto
+ * @param categoriaPiezas   Estructura Piezas
+ * @param piezas            Array configuracion actual
+ */
 void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza* piezas);
-//escogerPieza();
-//mostrarConfActual();
 
 #endif //GRUPO_4_CONF_COCHE_H

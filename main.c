@@ -11,7 +11,7 @@
 
 int main(int num_parametres, char **parametres) {
 
-    int nSortir = 0, opcion = 100, controlador = 0, i, j, numOp2 = 0;
+    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0;
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;

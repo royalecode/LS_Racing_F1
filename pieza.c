@@ -14,19 +14,17 @@ void leerPieza(FILE *file, Pieza *pieza){
 
 void leerCategoria(FILE *file, Categoria *categoria){
     int i;
-
     fscanfString(file, categoria->nombre);
     categoria->cantidad = fscanfNumber(file);
     categoria->piezas = (Pieza*) malloc(sizeof(Pieza)*categoria->cantidad);
 
-    for (int i = 0; i < categoria->cantidad; ++i) {
+    for (i = 0; i < categoria->cantidad; ++i) {
         leerPieza(file, &categoria->piezas[i]);
     }
 }
 
 int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
     FILE *file;
-    char line[1000];
     int i, err = 0;
 
     file = fopen(path, "r");

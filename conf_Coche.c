@@ -4,8 +4,11 @@
 
 #include "conf_Coche.h"
 
+/**
+ * Procedimiento que pide al usuario por terminal distintos datos del piloto
+ * @param piloto Esctructura donde guarda los datos
+ */
 void leerPiloto(Corredor *piloto) {
-    char msg[MAX_CHAR];//, error[MAX_CHAR];
     printf("\nNombre del piloto: ");
     fgets((*piloto).nombre, MAX_CHAR, stdin);
     (*piloto).nombre[strlen((*piloto).nombre) - 1] = '\0';
@@ -21,7 +24,13 @@ void leerPiloto(Corredor *piloto) {
 }
 
 
-//Funcion que dibuja las flechas y la imagen de la pieza en la pocion y con el tamaño especificados
+/**
+ * Procedimiento que dibuja las flechas y la imagen de la pieza en la pocion y con el tamaño especificados
+ * @param x   Coordenada X
+ * @param y   Coordenada Y
+ * @param px  Tamaño de referencia
+ * @param img Nombre de la imagen
+ */
 void printFlechasImg(int x, int y, int px, char *img) {
     ALLEGRO_BITMAP *photo;
     char path[100];
@@ -34,8 +43,10 @@ void printFlechasImg(int x, int y, int px, char *img) {
 
     photo = al_load_bitmap(path);
 
+    //Print foto
     al_draw_scaled_bitmap(photo, 0, 0, 500, 500, 4 * px + x, 4 * px + y, 4 * px, 4 * px, 0);
 
+    //Print flechas
     al_draw_filled_triangle(6 * px + x, 0 * px + y, 4 * px + x, 2 * px + y, 8 * px + x, 2 * px + y,
                             LS_allegro_get_color(WHITE));
     al_draw_filled_triangle(0 * px + x, 6 * px + y, 2 * px + x, 4 * px + y, 2 * px + x, 8 * px + y,
@@ -61,7 +72,12 @@ void printFlechasImg(int x, int y, int px, char *img) {
 
 }
 
-//Funcion que printa la informacion de la pieza seleccionada
+/**
+ * Funcion que printa la informacion de la pieza seleccionada
+ * @param categoriaPiezas   Estructura que contiene la piezas
+ * @param ic                Indice que determina la categoria de la pieza
+ * @param ip                Indice que determina la pieza
+ */
 void printPieza(CategoriaPiezas categoriaPiezas, int ic, int ip) {
     al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 620, 10, 0, "%s",
                   categoriaPiezas.categorias[ic].nombre);
@@ -77,8 +93,11 @@ void printPieza(CategoriaPiezas categoriaPiezas, int ic, int ip) {
                   categoriaPiezas.categorias[ic].piezas[ip].fiabilidad);
 }
 
-/*
- *
+/**
+ * Prodecimiento que imprime la configuracion actual y marca la categoria con la que estamos trabajando
+ * @param categoriaPiezas   Estructura que contiene la piezas
+ * @param piezas            Array que guarda las piezas seleccionadas
+ * @param ic                indice que determina la categoria con la que estamos trabajando
  */
 void printConf(CategoriaPiezas categoriaPiezas, Pieza *piezas, int ic) {
     int i, y;
@@ -98,6 +117,13 @@ void printConf(CategoriaPiezas categoriaPiezas, Pieza *piezas, int ic) {
     }
 }
 
+/**
+ * Funcion que devuelve la posicion de una pieza dentro de su categoria
+ * @param ic                Indice que determina la categoria con la que estamos trabajando
+ * @param piezas            Array de piezas de la confiugracion del coche
+ * @param categoriaPiezas   Estructura que contiene la piezas
+ * @return                  Devuelve la posicion de la pieza en la esctrucutra
+ */
 int getIndexPieza(int ic, Pieza *piezas, CategoriaPiezas categoriaPiezas) {
     int i;
     for (i = 0; i < categoriaPiezas.categorias[ic].cantidad; ++i) {
@@ -108,7 +134,13 @@ int getIndexPieza(int ic, Pieza *piezas, CategoriaPiezas categoriaPiezas) {
     return 0;
 }
 
-
+/**
+ * Funcion que printa todo el garaje
+ * @param piezas            Configuracion Actual
+ * @param categoriaPiezas   Todas la pezas
+ * @param ic                Categoria seleccionada
+ * @param ip                Pieza seleccionada
+ */
 void printGaraje(Pieza *piezas, CategoriaPiezas categoriaPiezas, int ic, int ip) {
     ALLEGRO_BITMAP *garaje;
 
@@ -124,7 +156,13 @@ void printGaraje(Pieza *piezas, CategoriaPiezas categoriaPiezas, int ic, int ip)
     al_destroy_bitmap(garaje);
 }
 
-void setInfoPiloto (Corredor *piloto, Pieza *piezas, int categorias){
+/**
+ * Funcion que calcula algunos atributos del piloto segun la configuracion del coche
+ * @param piloto        Estrucutra Piloto
+ * @param piezas        Configuración actual
+ * @param categorias    Numero de categorias
+ */
+void setInfoPiloto(Corredor *piloto, Pieza *piezas, int categorias) {
     int i;
 
     piloto->fiabilidad = 0;
@@ -138,17 +176,24 @@ void setInfoPiloto (Corredor *piloto, Pieza *piezas, int categorias){
         piloto->aceleracion += piezas[i].aceleracion;
         piloto->velocidad += piezas[i].velocidad;
     }
-
 }
 
+/**
+ * Procedimiento que engloba todo el garaje, desde sus controles hasta la gestion de los datos
+ * @param piloto            Estructura Piloto
+ * @param categoriaPiezas   Estructura Piezas
+ * @param piezas            Array configuracion actual
+ */
 void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *piezas) {
-    int i, ic = 0, ip = 0;
+    int  ic = 0, ip = 0;
     int exit = 0;
 
     ip = getIndexPieza(ic, piezas, categoriaPiezas);
 
+    //Garaje inicial
     printGaraje(piezas, categoriaPiezas, ic, ip);
 
+    //Controles de las teclas WASD, sale al pulsa ESC
     while (!exit) {
         if (LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) {
             piezas[ic] = categoriaPiezas.categorias[ic].piezas[ip];
@@ -179,14 +224,6 @@ void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *pie
         }
     }
 
-    setInfoPiloto(piloto,  piezas, categoriaPiezas.numeroCategorias);
+    //Al salir a partir de la configuracion seleccionada determinadmos algunos atributos del piloto
+    setInfoPiloto(piloto, piezas, categoriaPiezas.numeroCategorias);
 }
-
-/*
-escogerPieza(){
-
-}
-
-mostrarConfActual(){
-
-}*/
