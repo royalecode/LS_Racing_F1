@@ -17,7 +17,7 @@ int main(int num_parametres, char **parametres) {
     CategoriaPiezas categoriaPiezas;
     Premios premios;
     Base base;
-    Tiempos *tiempos;
+    Tiempos tiempos;
     Pieza *confCoche;
 
     leerPiezas(parametres[1], &categoriaPiezas);
@@ -26,7 +26,7 @@ int main(int num_parametres, char **parametres) {
     leerBase(parametres[4], &base);
 
     confCoche = (Pieza *) malloc(sizeof(Pieza) * categoriaPiezas.numeroCategorias);
-    tiempos = (Tiempos*) malloc(sizeof(Tiempos) * (pilotos.num_corredors + 1));
+
     for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
         confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
     }
@@ -65,7 +65,7 @@ int main(int num_parametres, char **parametres) {
                         if(numOp2 < premios.numPremios && controlador==1){
                             LS_allegro_clear_and_paint(BLACK);
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
-                            cargarCarrera(&premios, &pilotos, tiempos, &piloto, numOp2);
+                            cargarCarrera(&premios, &pilotos, &tiempos, &piloto, numOp2);
                             numOp2++;
                         } else {
                             if (controlador != 1) printf("Aun no has configurado el coche.\n");
