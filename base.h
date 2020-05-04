@@ -20,6 +20,6 @@ typedef struct{
  * @param ruta      Ruta para poder abrir el fichero que se pide que leamos
  * @param base      Estructura donde guardaremos la información de las características básicas de los coches
  */
-void leerBase(char* ruta, Base *base);
+int leerBase(char* ruta, Base *base);
 
 #endif //GRUPO_4_BASE_H

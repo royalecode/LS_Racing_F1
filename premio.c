@@ -22,8 +22,9 @@ int leerPremios(char* path, Premios *premios){
 
     file = fopen(path, "r");
     if (file == NULL){
-        printf("ERROR: El fichero de GP's '%s' no es accesible.\n", path);
         err = 1;
+    }else if(ftell(file) == 0){
+        err = 2;
     }else{
         premios->numPremios = fscanfNumber(file);
         premios->premios = (Premio*) malloc(sizeof(Premio) * premios->numPremios);

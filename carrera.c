@@ -29,10 +29,10 @@ void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiemp
 void printarInfoCarrera(Premios *premios, int num) {
     int err = 0, i;
     LS_allegro_clear_and_paint(BLACK);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 140, 0, "%s", "BENVINGUT AL ");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 140, 0, "%s ", "BENVINGUT AL");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 460, 140, 0, "%s",
                   premios->premios[num].nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s", "VELOCITAT: ");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s ", "VELOCITAT:");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 510, 190, 0, "%d",
                   premios->premios[num].velocidad);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 220, 0, "%s", "ACCELERACIO: ");
@@ -251,11 +251,10 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
 void mostrarFinalCarrera(Corredor *piloto, int posicion) {
     int err = 0;
     LS_allegro_clear_and_paint(BLACK);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 420, 250, 0, "%s", piloto->nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 280, 0, "%s", "HA FINALITZAT");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 470, 280, 0, "%s", "EN LA POSICIO");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 635, 280, 0, "%d", posicion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 350, 0, "%s",
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - (((int)strlen(piloto->nombre)*12)/2), 220, 0, "%s", piloto->nombre);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((27*12)/2), 250, 0, "%s", "HA FINALITZAT EN LA POSICIO");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) + ((28*12)/2), 250, 0, "%d", posicion);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((30*12)/2), 320, 0, "%s",
                   "PULSA ENTER PER TORNAR AL MENU");
     LS_allegro_clear_and_paint(BLACK);
     while (err == 0) {

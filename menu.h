@@ -21,6 +21,15 @@ void printarMenu();
  * @return      Devolvemos el entero que el usuario ha introducido como opción del menu
  */
 int leer_opcion();
+
+/**
+ * Procedimiento que cambia la pantalla tras terminar con una funcionalidad
+ */
 void pantallaMenu();
+
+/**
+ * Procedimiento que informa de los posibles errores con la lectura de ficheros inicial
+ */
+void printFileErr();
 
 #endif //GRUPO_4_MENU_H

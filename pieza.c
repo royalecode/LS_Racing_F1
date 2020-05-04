@@ -29,8 +29,9 @@ int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
 
     file = fopen(path, "r");
     if (file == NULL){
-        printf("ERROR: El fichero de piezas '%s' no es accesible.\n", path);
         err = 1;
+    }else if(ftell(file) == 0){
+        err = 2;
     }else{
         categoriaPiezas->numeroCategorias = fscanfNumber(file);
         categoriaPiezas->categorias = (Categoria*) malloc(sizeof(Categoria) * categoriaPiezas->numeroCategorias);

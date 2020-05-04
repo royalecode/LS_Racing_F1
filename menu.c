@@ -56,3 +56,18 @@ void pantallaMenu(){
     LS_allegro_console_fflush();
 }
 
+void printFileErr(int err){
+    switch (err){
+        case 1:
+            printf("\nError. Ha ocurrido un error durante el procesamiento de los ficheros.\n");
+            break;
+        case 2:
+            printf("\nError. Hay un fichero vacio.\n");
+            break;
+        case 3:
+            printf("\nError. El programa tiene que recibir 4 argumentos.\n");
+            break;
+        default:
+            break;
+    }
+}

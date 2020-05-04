@@ -27,8 +27,10 @@ int leerCorredores(char* path, ConjuntoCorredores *pilotos){
 
     file = fopen(path, "rb");
     if (file == NULL){
-        printf("ERROR: El fichero de corredores '%s' no es accesible.\n", path);
         err = 1;
+    }
+    else if(ftell(file) == 0){
+        err = 2;
     }else{
         pilotos->num_corredors = 7;
         pilotos->corredores = (Corredores*) malloc(sizeof(Corredores) * pilotos->num_corredors);
