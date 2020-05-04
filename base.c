@@ -4,6 +4,12 @@
 
 #include "base.h"
 
+/**
+ * Función dedicada a leer el fichero base que recibe el programa por parámetro en el main. Proporciona estadísticas básicas
+ * de los cohces
+ * @param ruta      Ruta para poder abrir el fichero que se pide que leamos
+ * @param base      Estructura donde guardaremos la información de las características básicas de los coches
+ */
 void leerBase(char* ruta, Base *base){
     FILE *file;
     file = fopen(ruta, "rb");

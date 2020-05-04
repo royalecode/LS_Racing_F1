@@ -4,6 +4,9 @@
 
 #include "menu.h"
 
+/**
+ * Función utilitzada para printar el menu del programa cada vez que sea necesario
+ */
 void printarMenu(){
     printf("\n\t1. Configurar coche");
     printf("\n\t2. Carrera");
@@ -12,6 +15,11 @@ void printarMenu(){
     printf("Que opcion quieres ejecutar? ");
 }
 
+/**
+ * Función que lee por teclado la opción que introduce el usuario, este entra una cadena de carácteres que se transforma
+ * en un entero
+ * @return      Devolvemos el entero que el usuario ha introducido como opción del menu
+ */
 int leer_opcion() {
     char cad[MAX];
     int op, controlador = 0;
