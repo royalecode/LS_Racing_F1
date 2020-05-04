@@ -189,7 +189,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
  */
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
     float time = 0, _clock;
-    int num_stops = 0, i, y_dorsal, y_line, y_car, seg = 0, stop_valido = 0, x_line = 670;
+    int num_stops = 0, i, y_dorsal, y_line, y_car, stop_valido = 0, x_line = 670;
     float x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
@@ -224,17 +224,18 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
             al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d",
                           tiempos->tiempos[i].dorsal);
             al_draw_line(80, y_line, 80 + x_line, y_line, LS_allegro_get_color(BLACK), 3);
-            al_draw_scaled_bitmap(cotxe, 0, 0, 80, 40, x_car[i], y_car, 70, 30, 0);
+            al_draw_scaled_bitmap(cotxe, 0, 0, 80, 40, x_car[i], y_car, 60, 30, 0);
             y_dorsal = y_dorsal + 65;
             if (time <= tiempos->tiempos[i].tiempo_carrera) {
-                x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 70) + 80;
+                x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;
             }
             y_car = y_car + 65;
             y_line = y_line + 65;
         }
         LS_allegro_clear_and_paint(BLACK);
-        seg++;
     }
+
+    al_destroy_bitmap(cotxe);
 
     if (num_stops < tiempos->tiempos[NUM_PILOTS - 1].num_stops) {
         tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera =
