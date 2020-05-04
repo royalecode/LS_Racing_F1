@@ -19,6 +19,7 @@
 typedef struct{
     int tiempo_carrera;
     int tiempo_stops;
+    char nombre[25];
     int dorsal;
     int num_stops;
 }Tiempos_Corredor;

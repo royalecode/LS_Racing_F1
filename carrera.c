@@ -14,11 +14,11 @@
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
 void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num){
-    int posicion = 1;
+    //int posicion = 1;
     printarInfoCarrera(premios, num);
     calcularTiempo(pilotos, premios, tiempos, piloto, num);
     mostrarCarrera(piloto, tiempos);
-    mostrarFinalCarrera(piloto, posicion);
+    //mostrarFinalCarrera(piloto, posicion);
 }
 
 /**
@@ -107,6 +107,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
     for(i=0; i < pilotos->num_corredors; i++){
         num_pit_stops = premios->premios[num].numPitStop;
         //printf("%s piloto\n", pilotos->corredores[i].nombre);
+        strcpy(tiempos->tiempos[i].nombre,pilotos->corredores[i].nombre);
         tiempos->tiempos[i].dorsal = pilotos->corredores[i].dorsal;
 
         diferencias = ((abs(premios->premios[num].velocidad - pilotos->corredores[i].velocidad) +
@@ -139,7 +140,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
     }
     //añadimos al struct tiempo en la ultima posicion los calculos para nuestro propio piloto
     //printf("%s piloto propio\n", piloto->nombre);
-
+    strcpy(tiempos->tiempos[i].nombre , piloto->nombre);
     tiempos->tiempos[i].dorsal = piloto->dorsal;
     diferencias = ((abs(premios->premios[num].velocidad - piloto->velocidad) + abs(premios->premios[num].aceleracion - piloto->aceleracion) +
             abs(premios->premios[num].consumo - piloto->consumo) + abs(premios->premios[num].fiabilidad - piloto->fiabilidad)));
@@ -213,7 +214,7 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos){
         for (i = 0; i < NUM_PILOTS; i++) {
             al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d", tiempos->tiempos[i].dorsal);
             al_draw_line(80, y_line, 80 + x_line, y_line, LS_allegro_get_color(BLACK), 3);
-            al_draw_scaled_bitmap(cotxe, 0, 0, 70, 30, x_car[i], y_car, 70, 30, 0);
+            al_draw_scaled_bitmap(cotxe, 0, 0, 80, 40, x_car[i], y_car, 70, 30, 0);
             y_dorsal = y_dorsal + 65;
             if(x_car[i]<690) {
                 x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * x_line + 60;

@@ -8,10 +8,11 @@
 #include "corredores.h"
 #include "carrera.h"
 #include "base.h"
+#include "clasificacion.h"
 
 int main(int num_parametres, char **parametres) {
 
-    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0;
+    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0, posicion = 1;
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
@@ -19,6 +20,7 @@ int main(int num_parametres, char **parametres) {
     Base base;
     Tiempos tiempos;
     Pieza *confCoche;
+    Clasificacion clasificacion;
 
     leerPiezas(parametres[1], &categoriaPiezas);
     leerPremios(parametres[2], &premios);
@@ -26,9 +28,12 @@ int main(int num_parametres, char **parametres) {
     leerBase(parametres[4], &base);
 
     confCoche = (Pieza *) malloc(sizeof(Pieza) * categoriaPiezas.numeroCategorias);
-
     for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
         confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
+    }
+    clasificacion.clas_GPs = (Info_Class_GP*) malloc(sizeof(Info_Class_GP) * premios.numPremios);
+    for (int j = 0; j < premios.numPremios; ++j) {
+        clasificacion.clas_GPs[j].clas = (Info_Class*) malloc(sizeof(Info_Class) * NUM_PILOTS);
     }
 
     //Inicialitzem Allegro
@@ -66,6 +71,8 @@ int main(int num_parametres, char **parametres) {
                             LS_allegro_clear_and_paint(BLACK);
                             printf("Preparando carrera #%d: %s ...\n", numOp2+1, premios.premios[numOp2].nombre);
                             cargarCarrera(&premios, &pilotos, &tiempos, &piloto, numOp2);
+                            guardarClasificacion(&tiempos, &premios, &clasificacion ,numOp2);
+                            mostrarFinalCarrera(&piloto, posicion);
                             numOp2++;
                         } else {
                             if (controlador != 1) printf("Aun no has configurado el coche.\n");
@@ -74,7 +81,7 @@ int main(int num_parametres, char **parametres) {
                         break;
                     case 3:
                         if (numOp2 > 0) {
-                            //llamara modulo clasificacion
+                            printarClasificacion(&clasificacion, numOp2-1);
                         } else printf("La temporada aun no ha empezado.\n");
                         break;
                     case 4:
@@ -95,7 +102,10 @@ int main(int num_parametres, char **parametres) {
     }
 
     free(confCoche);
-
+    for (int j = 0; j < premios.numPremios; ++j) {
+        free(clasificacion.clas_GPs[j].clas);
+    }
+    free(clasificacion.clas_GPs);
     //Tanquem la finestra gràfica
     LS_allegro_exit();
 
