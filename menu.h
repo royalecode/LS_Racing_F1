@@ -7,8 +7,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "LS_allegro.h"
 #include "funciones_Basicas.h"
-#define MAX 25
 
 /**
  * Función utilitzada para printar el menu del programa cada vez que sea necesario
@@ -21,5 +21,6 @@ void printarMenu();
  * @return      Devolvemos el entero que el usuario ha introducido como opción del menu
  */
 int leer_opcion();
+void pantallaMenu();
 
 #endif //GRUPO_4_MENU_H

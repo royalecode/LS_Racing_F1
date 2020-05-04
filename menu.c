@@ -21,10 +21,10 @@ void printarMenu(){
  * @return      Devolvemos el entero que el usuario ha introducido como opción del menu
  */
 int leer_opcion() {
-    char cad[MAX];
+    char cad[MAX_STRING];
     int op, controlador = 0;
 
-    fgets(cad, MAX, stdin);
+    fgets(cad, MAX_STRING, stdin);
     if((strcmp(cad,"exit\n"))==0){
         cad[strlen(cad-1)]='\0';
         op = 0;
@@ -34,7 +34,7 @@ int leer_opcion() {
         while ((control_numero(op, 1, 4)) != 1  && controlador == 0) {
             printf("\nError. Opcion no valida.\n");
             printarMenu();
-            fgets(cad, MAX, stdin);
+            fgets(cad, MAX_STRING, stdin);
             if((strcmp(cad,"exit\n"))==0) {
                 cad[strlen(cad-1)]='\0';
                 op = 0;
@@ -47,5 +47,12 @@ int leer_opcion() {
     }
 
     return op;
+}
+
+void pantallaMenu(){
+    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 500 - 374, 250, 0, "%s",
+                  "REGRESE AL TERMINAL PARA CONTINUAR");
+    LS_allegro_clear_and_paint(BLACK);
+    LS_allegro_console_fflush();
 }
 

@@ -3,6 +3,7 @@
 //
 
 #include "conf_Coche.h"
+#include "funciones_Basicas.h"
 
 /**
  * Procedimiento que pide al usuario por terminal distintos datos del piloto
@@ -10,17 +11,16 @@
  */
 void leerPiloto(Corredor *piloto) {
     printf("\nNombre del piloto: ");
-    fgets((*piloto).nombre, MAX_CHAR, stdin);
+    fgets((*piloto).nombre, MAX_STRING, stdin);
     (*piloto).nombre[strlen((*piloto).nombre) - 1] = '\0';
     printf("Nombre de la escuderia: ");
-    fgets((*piloto).escuderia, MAX_CHAR, stdin);
+    fgets((*piloto).escuderia, MAX_STRING, stdin);
     (*piloto).escuderia[strlen((*piloto).escuderia) - 1] = '\0';
     (*piloto).dorsal = scanRange(1, 99, "Dorsal");
     (*piloto).reflejos = scanRange(0, 10, "Reflejos");
     (*piloto).cond_fisica = scanRange(0, 10, "Condicion fisica");
     (*piloto).temperamento = scanRange(0, 10, "Temperamento");
     (*piloto).gestion_neumaticos = scanRange(0, 10, "Gestion de neumaticos");
-    printf("\nCargando configurador...\n");
 }
 
 
@@ -187,6 +187,8 @@ void setInfoPiloto(Corredor *piloto, Pieza *piezas, int categorias) {
 void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *piezas) {
     int  ic = 0, ip = 0;
     int exit = 0;
+
+    printf("\nCargando configurador...\n");
 
     ip = getIndexPieza(ic, piezas, categoriaPiezas);
 

@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_STRING 25+1
+
 int isNumber(char *str);
 int scanRange(int min, int max, char* msg);
 //int atoi(const char *cad);

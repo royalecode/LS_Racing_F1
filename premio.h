@@ -12,7 +12,7 @@
 
 typedef struct {
     int posicion;
-    char nombre[25];
+    char nombre[MAX_STRING];
     int velocidad;
     int aceleracion;
     int consumo;

@@ -11,9 +11,9 @@
 #include "funciones_Basicas.h"
 
 typedef struct{
-    char nombre[25];
+    char nombre[MAX_STRING];
     int dorsal;
-    char escuderia[25];
+    char escuderia[MAX_STRING];
     int velocidad;
     int aceleracion;
     int consumo;

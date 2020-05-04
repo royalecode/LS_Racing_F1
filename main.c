@@ -47,8 +47,11 @@ int main(int num_parametres, char **parametres) {
             nSortir = 1;
         }
 
-        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 140, 100, 0, "%s",
-                      "Benvingut a Allegro! Prem ESC per sortir...");
+        al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 500- 264, 200, 0, "%s",
+                      "Bienvenidos a LS Racing!");
+        al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 500 - 354, 240, 0, "%s",
+                      "Acceda al terminal para ver las funcionalidades disponibles");
+
         //Pintem la pantalla de la finestra gràfica
         LS_allegro_clear_and_paint(BLACK);
 
@@ -64,7 +67,7 @@ int main(int num_parametres, char **parametres) {
                             controlador = 1;
                         }
                         mostrarGaraje(&piloto, categoriaPiezas, confCoche);
-
+                        pantallaMenu();
                         break;
                     case 2:
                         if(numOp2 < premios.numPremios && controlador==1){

@@ -4,12 +4,13 @@
 
 #ifndef GRUPO_4_TIPOS_H
 #define GRUPO_4_TIPOS_H
-#define MAX_CHAR 25
+
+#include "funciones_Basicas.h"
 
 typedef struct{
-    char nombre[MAX_CHAR];
+    char nombre[MAX_STRING];
     int dorsal;
-    char escuderia[MAX_CHAR];
+    char escuderia[MAX_STRING];
     int velocidad;
     int aceleracion;
     int consumo;
