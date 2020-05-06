@@ -23,8 +23,6 @@ int leerPremios(char* path, Premios *premios){
     file = fopen(path, "r");
     if (file == NULL){
         err = 1;
-    }else if(ftell(file) == 0){
-        err = 2;
     }else{
         premios->numPremios = fscanfNumber(file);
         premios->premios = (Premio*) malloc(sizeof(Premio) * premios->numPremios);
@@ -32,6 +30,7 @@ int leerPremios(char* path, Premios *premios){
         for (i = 0; i < premios->numPremios; ++i) {
             leerPremio(file, &premios->premios[i]);
         }
+        if (premios->numPremios == 0) err = 2;
         fclose(file);
     }
     return err;

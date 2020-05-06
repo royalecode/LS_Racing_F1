@@ -29,15 +29,14 @@ int leerCorredores(char* path, ConjuntoCorredores *pilotos){
     if (file == NULL){
         err = 1;
     }
-    else if(ftell(file) == 0){
-        err = 2;
-    }else{
+    else{
         pilotos->num_corredors = 7;
         pilotos->corredores = (Corredores*) malloc(sizeof(Corredores) * pilotos->num_corredors);
 
         for (i = 0; i < pilotos->num_corredors; ++i) {
             leerCorredor(file, &pilotos->corredores[i]);
         }
+        if(pilotos->num_corredors == 0)err = 2;
         fclose(file);
     }
     return err;

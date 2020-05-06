@@ -30,8 +30,6 @@ int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
     file = fopen(path, "r");
     if (file == NULL){
         err = 1;
-    }else if(ftell(file) == 0){
-        err = 2;
     }else{
         categoriaPiezas->numeroCategorias = fscanfNumber(file);
         categoriaPiezas->categorias = (Categoria*) malloc(sizeof(Categoria) * categoriaPiezas->numeroCategorias);
@@ -39,6 +37,7 @@ int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
         for (i = 0; i < categoriaPiezas->numeroCategorias; ++i) {
             leerCategoria(file, &categoriaPiezas->categorias[i]);
         }
+        if (categoriaPiezas->numeroCategorias == 0) err = 2;
         fclose(file);
     }
     return err;

@@ -17,8 +17,6 @@ int leerBase(char* ruta, Base *base){
     file = fopen(ruta, "rb");
     if(file == NULL){
         err = 1;
-    }else if(ftell(file) == 0){
-        err = 2;
     }else{
         fread(base, sizeof(Base), 1, file);
         //printf("%d\n%d\n", base->fiabilidad, base->consumo);
