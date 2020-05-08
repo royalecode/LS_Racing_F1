@@ -9,10 +9,11 @@
 #include "carrera.h"
 #include "base.h"
 #include "clasificacion.h"
+#include "guardar_Temporada.h"
 
 int main(int num_parametres, char **parametres) {
 
-    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0, err = 0, posicion = 1;
+    int nSortir = 0, opcion = 100, controlador = 0, i, err = 0, posicion = 1;
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
@@ -21,6 +22,8 @@ int main(int num_parametres, char **parametres) {
     Tiempos tiempos;
     Pieza *confCoche;
     Clasificacion clasificacion;
+
+    clasificacion.numClasificaciones = 0;
 
     if(num_parametres != 5) err = 3;
     if (!err) err = leerPiezas(parametres[1], &categoriaPiezas);
@@ -36,8 +39,8 @@ int main(int num_parametres, char **parametres) {
             confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
         }
         clasificacion.clas_GPs = (Info_Class_GP *) malloc(sizeof(Info_Class_GP) * premios.numPremios);
-        for (int j = 0; j < premios.numPremios; ++j) {
-            clasificacion.clas_GPs[j].clas = (Info_Class *) malloc(sizeof(Info_Class) * NUM_PILOTS);
+        for (i = 0; i < premios.numPremios; ++i) {
+            clasificacion.clas_GPs[i].clas = (Info_Class *) malloc(sizeof(Info_Class) * NUM_PILOTS);
         }
 
         //Inicialitzem Allegro
@@ -74,25 +77,25 @@ int main(int num_parametres, char **parametres) {
                             pantallaMenu();
                             break;
                         case 2:
-                            if (numOp2 < premios.numPremios && controlador == 1) {
+                            if (clasificacion.numClasificaciones < premios.numPremios && controlador == 1) {
                                 LS_allegro_clear_and_paint(BLACK);
-                                printf("Preparando carrera #%d: %s ...\n", numOp2 + 1, premios.premios[numOp2].nombre);
-                                cargarCarrera(&premios, &pilotos, &tiempos, &piloto, numOp2);
-                                guardarClasificacion(&tiempos, &premios, &clasificacion, numOp2, &posicion);
+                                printf("Preparando carrera #%d: %s ...\n", clasificacion.numClasificaciones + 1, premios.premios[clasificacion.numClasificaciones].nombre);
+                                cargarCarrera(&premios, &pilotos, &tiempos, &piloto, clasificacion.numClasificaciones);
+                                guardarClasificacion(&tiempos, &premios, &clasificacion, clasificacion.numClasificaciones, &posicion);
                                 mostrarFinalCarrera(&piloto, &posicion);
-                                numOp2++;
+                                clasificacion.numClasificaciones++;
                             } else {
                                 if (controlador != 1) printf("Aun no has configurado el coche.\n");
                                 else printf("Ya has finalizado la temporada.\n");
                             }
                             break;
                         case 3:
-                            if (numOp2 > 0) {
-                                printarClasificacion(&clasificacion, numOp2 - 1, premios.numPremios, numOp2 -1);
+                            if (clasificacion.numClasificaciones > 0) {
+                                printarClasificacion(&clasificacion, clasificacion.numClasificaciones - 1, premios.numPremios);
                             } else printf("La temporada aun no ha empezado.\n");
                             break;
                         case 4:
-                            //llamar modulo guardar_temp
+                            exportTemporada(clasificacion);
                             break;
                         case 0:
                             printf("\nHasta Pronto!\n");

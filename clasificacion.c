@@ -67,7 +67,7 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
     }
 }
 
-void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp, int gp_actual){
+void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
     int y_pilot = 90, err =0;
     LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),50,50,0,"%s %s",
@@ -96,9 +96,9 @@ void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp, int
             err = 1;
         }
         if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0){
-            printarClasificacion(clasificacion, num-1, max_Gp, gp_actual);
-        }else if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < gp_actual){
-            printarClasificacion(clasificacion, num+1, max_Gp, gp_actual);
+            printarClasificacion(clasificacion, num-1, max_Gp);
+        }else if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < clasificacion->numClasificaciones){
+            printarClasificacion(clasificacion, num+1, max_Gp);
         }
         if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp-1){
             err = imprimirClasFinalTemp(clasificacion, num);

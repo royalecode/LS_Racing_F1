@@ -5,6 +5,10 @@
 #ifndef GRUPO_4_GUARDAR_TEMPORADA_H
 #define GRUPO_4_GUARDAR_TEMPORADA_H
 
-logTemporada();
+#include "clasificacion.h"
+#include <stdio.h>
+#include <string.h>
+
+void exportTemporada(Clasificacion clasificacion);
 
 #endif //GRUPO_4_GUARDAR_TEMPORADA_H

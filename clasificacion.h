@@ -30,11 +30,12 @@ typedef struct {
 }Info_Class_GP;
 
 typedef struct {
+    int numClasificaciones;
     Info_Class_GP *clas_GPs;
 }Clasificacion;
 
 void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion ,int num, int *posicion);
-void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp, int gp_actual);
+void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp);
 int imprimirClasFinalTemp(Clasificacion *clasificacion, int num);
 void ordenacionPilotos_Puntos(Info_Class_GP *final, Clasificacion *clasificacion, int num);
 
