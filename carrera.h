@@ -65,7 +65,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
  * @param piloto    Información de nuestro piloto para printar su nombre
  * @param posicion  Posición de la carrera en la que ha quedado nuestro piloto
  */
-void mostrarFinalCarrera(Corredor *piloto, int posicion);
+void mostrarFinalCarrera(Corredor *piloto, int *posicion);
 
 /**
  * Funcion dedicada a llamar otras funciones que van a llevar a cabo todas las modalidades para ejecutar la opcion carrera

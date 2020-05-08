@@ -189,7 +189,7 @@ void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiem
  */
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
     float time = 0, _clock;
-    int num_stops = 0, i, y_dorsal, y_line, y_car, stop_valido = 0, x_line = 670;
+    int num_stops = 0, i, j=0, y_dorsal, y_line, y_car, stop_valido = 0, x_line = 670, posicion;
     float x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
@@ -200,6 +200,8 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
     _clock = clock();
     LS_allegro_clear_and_paint(BLACK);
 
+    tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera = tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera - tiempos->tiempos[NUM_PILOTS-1].tiempo_stops;
+    printf("%d temp car pilot\n",tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera );
     while (time <= tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera) {
         y_dorsal = 30, y_line = 37, y_car = 18;
         time = ((float) clock() - _clock) / 1000;
@@ -229,13 +231,19 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
             if (time <= tiempos->tiempos[i].tiempo_carrera) {
                 x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;
             }
+            /*if(x_car[i] >= 690 && i!=NUM_PILOTS-1){
+                j++;
+            }else if(x_car[i] >= 690 && i==NUM_PILOTS-1){
+                posicion = j++;
+            }*/
             y_car = y_car + 65;
             y_line = y_line + 65;
         }
         LS_allegro_clear_and_paint(BLACK);
     }
-
     al_destroy_bitmap(cotxe);
+    tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera = tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera + tiempos->tiempos[NUM_PILOTS-1].tiempo_stops;
+    printf("%d temp car pilot\n",tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera );
 
     if (num_stops < tiempos->tiempos[NUM_PILOTS - 1].num_stops) {
         tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera =
@@ -248,12 +256,12 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
  * @param piloto    Información de nuestro piloto para printar su nombre
  * @param posicion  Posición de la carrera en la que ha quedado nuestro piloto
  */
-void mostrarFinalCarrera(Corredor *piloto, int posicion) {
+void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
     int err = 0;
     LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - (((int)strlen(piloto->nombre)*12)/2), 220, 0, "%s", piloto->nombre);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((27*12)/2), 250, 0, "%s", "HA FINALITZAT EN LA POSICIO");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) + ((28*12)/2), 250, 0, "%d", posicion);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) + ((28*12)/2), 250, 0, "%d", *posicion);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((30*12)/2), 320, 0, "%s",
                   "PULSA ENTER PER TORNAR AL MENU");
     LS_allegro_clear_and_paint(BLACK);

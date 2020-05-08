@@ -12,7 +12,7 @@
 
 int main(int num_parametres, char **parametres) {
 
-    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0, posicion = 1, err = 0;
+    int nSortir = 0, opcion = 100, controlador = 0, i, numOp2 = 0, err = 0, posicion = 1;
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
@@ -78,8 +78,8 @@ int main(int num_parametres, char **parametres) {
                                 LS_allegro_clear_and_paint(BLACK);
                                 printf("Preparando carrera #%d: %s ...\n", numOp2 + 1, premios.premios[numOp2].nombre);
                                 cargarCarrera(&premios, &pilotos, &tiempos, &piloto, numOp2);
-                                guardarClasificacion(&tiempos, &premios, &clasificacion, numOp2);
-                                mostrarFinalCarrera(&piloto, posicion);
+                                guardarClasificacion(&tiempos, &premios, &clasificacion, numOp2, &posicion);
+                                mostrarFinalCarrera(&piloto, &posicion);
                                 numOp2++;
                             } else {
                                 if (controlador != 1) printf("Aun no has configurado el coche.\n");
@@ -88,11 +88,11 @@ int main(int num_parametres, char **parametres) {
                             break;
                         case 3:
                             if (numOp2 > 0) {
-                                printarClasificacion(&clasificacion, numOp2 - 1);
+                                printarClasificacion(&clasificacion, numOp2 - 1, premios.numPremios, numOp2 -1);
                             } else printf("La temporada aun no ha empezado.\n");
                             break;
                         case 4:
-                            //llamar modulo clasificacion
+                            //llamar modulo guardar_temp
                             break;
                         case 0:
                             printf("\nHasta Pronto!\n");
@@ -113,6 +113,7 @@ int main(int num_parametres, char **parametres) {
             free(clasificacion.clas_GPs[j].clas);
         }
         free(clasificacion.clas_GPs);
+
         //Tanquem la finestra gràfica
         LS_allegro_exit();
     }

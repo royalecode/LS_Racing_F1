@@ -4,6 +4,10 @@
 
 #ifndef GRUPO_4_CLASIFICACION_H
 #define GRUPO_4_CLASIFICACION_H
+#define yel YELLOW
+#define gri GREY
+#define re RED
+#define wh WHITE
 
 #include "premio.h"
 #include "carrera.h"
@@ -17,6 +21,7 @@ typedef struct {
     int posicion;
     char nombre[25];
     int puntos;
+    int dorsal;
 }Info_Class;
 
 typedef struct {
@@ -28,8 +33,9 @@ typedef struct {
     Info_Class_GP *clas_GPs;
 }Clasificacion;
 
-void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion ,int num);
-void printarClasificacion(Clasificacion *clasificacion, int num);
-//ordenacionPilotos();
+void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion ,int num, int *posicion);
+void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp, int gp_actual);
+int imprimirClasFinalTemp(Clasificacion *clasificacion, int num);
+void ordenacionPilotos_Puntos(Info_Class_GP *final, Clasificacion *clasificacion, int num);
 
 #endif //GRUPO_4_CLASIFICACION_H
