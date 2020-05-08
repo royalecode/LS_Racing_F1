@@ -4,6 +4,16 @@
 
 #include "clasificacion.h"
 
+/**
+ * Esta función se ejecuta en la opción 2 para guardar la clasificación del gran premio, para luego utilitzarla en la opción 3
+ * Su función es ordenar los pilotos según el tiempo que hayan tardado en realizar la carrera, y por lo tanto determinar su posición
+ * en el campeonato y darles los puntos ganados según la posición
+ * @param tiempos           Estructura donde tenemos la información de timepo carrera para cada piloto
+ * @param premios           Necesitamos para guardar el nombre del gran premio en concreto que se ha cursado
+ * @param clasificacion     Estructura donde guardaremos la clasificación de todos los gran premios
+ * @param num               Gran premio en el cual nos encontramos
+ * @param posicion          Puntero para aconseguir la posición de nuestro propio piloto para más tarde printarla por pantalla
+ */
 void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion, int num, int *posicion){
     int petit, puntos_inici = 0;
     strcpy(clasificacion->clas_GPs[num].nombreGP , premios->premios[num].nombre);
@@ -53,11 +63,16 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
         }
 
         if(clasificacion->clas_GPs[num].clas[l].dorsal == tiempos->tiempos[NUM_PILOTS-1].dorsal){
-            *posicion = clasificacion->clas_GPs[num].clas[l].posicion;
+            *posicion = clasificacion->clas_GPs[num].clas[l].posicion; //guardar la posicion de nuestro piloto para printarla en la info final de carrera
         }
-
+        //for que busca donde esta el piloto que analizamos en este momento en la clasificacion del anterior GP y así
+        //poder saber los puntos que lleva y sumarle los nuevos puntos
         if (num != 0) {
-            clasificacion->clas_GPs[num].clas[l].puntos = clasificacion->clas_GPs[num].clas[l].puntos + puntos_inici;
+            for (int m = 0; m < NUM_PILOTS; ++m) {
+                if(clasificacion->clas_GPs[num].clas[l].dorsal == clasificacion->clas_GPs[num-1].clas[m].dorsal){
+                    clasificacion->clas_GPs[num].clas[l].puntos = clasificacion->clas_GPs[num-1].clas[m].puntos + puntos_inici;
+                }
+            }
         } else {
             clasificacion->clas_GPs[num].clas[l].puntos = puntos_inici;
         }
@@ -66,29 +81,42 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
     }
 }
 
+/**
+ * Esta función es encargada de llammar la que imprime la interfaz gràfica de clasificación y a la vez controlar las teclas por
+ * teclado para saber si quiere volver al menú o bien visualizar la clasificación de anteriores o posteriores gran premios
+ * @param clasificacion     Estrucutra donde hay guardada todas las clasificaciones
+ * @param num               Numero del gran premio que nos encontramos actualmente
+ * @param max_Gp            El maximo de gran premios que se juegan en una temporada
+ */
 void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
-    int err = 0;
-    printarClasificacion(clasificacion, num, max_Gp);
+    int err = 0, control_final = 0;
+    printarClasificacion(clasificacion, num);
 
     while(err==0){
         if(LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) err = 1;
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0){
-            printarClasificacion(clasificacion, num-1, max_Gp);
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0 && control_final==0){
+            printarClasificacion(clasificacion, num-1);
             num--;
         }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < (clasificacion->numClasificaciones-1)){
-            printarClasificacion(clasificacion, num+1, max_Gp);
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < (clasificacion->numClasificaciones-1) && control_final==0){
+            printarClasificacion(clasificacion, num+1);
             num++;
         }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp-1){
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp){
             num--;
             imprimirClasFinalTemp(clasificacion, num);
-            num++;
+            control_final = 1;
         }
     }
 }
 
-void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
+/**
+ * Función que printa por pantalla la información de la clasificación del gran premio en concreto que se le concreta por
+ * parámetro
+ * @param clasificacion     Estrucutra de donde extraemos la información a imprimir
+ * @param num               Numero del gran premio que nos encontramos actualmente
+ */
+void printarClasificacion(Clasificacion *clasificacion, int num){
     int y_pilot = 90;
     LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),50,50,0,"%s %s",
@@ -114,6 +142,11 @@ void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
     LS_allegro_clear_and_paint(BLACK);
 }
 
+/**
+ * Función encargada de imprimir por pantalla la clasificación total del final de la temporada
+ * @param clasificacion         Estructura donde se guarda toda la información de clasificaciones
+ * @param num                   Numero del gran premio que nos encontramos actualmente
+ */
 void imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
     int y_pilot = 90;
     Info_Class_GP final;
@@ -141,6 +174,13 @@ void imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
     }*/
 }
 
+/**
+ * Función para ordenar los pilotos y conseguir su clasificación final de temporada según los puntos que hayan conseguido
+ * en total
+ * @param final             Estructura donde guardaremos la clasificación final de temporada específicamente
+ * @param clasificacion     Estructura donde se guarda toda la información de clasificaciones
+ * @param num               Numero del gran premio que nos encontramos actualmente
+ */
 void ordenacionPilotos_Puntos(Info_Class_GP *final, Clasificacion *clasificacion, int num){
     int major;
     Info_Class aux;
