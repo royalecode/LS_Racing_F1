@@ -57,6 +57,7 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
         if(clasificacion->clas_GPs[num].clas[l].dorsal == tiempos->tiempos[NUM_PILOTS-1].dorsal){
             *posicion = clasificacion->clas_GPs[num].clas[l].posicion;
         }
+
         if (num != 0) {
             clasificacion->clas_GPs[num].clas[l].puntos = clasificacion->clas_GPs[num].clas[l].puntos + puntos_inici;
         } else {
@@ -67,8 +68,28 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
     }
 }
 
+void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
+    int err = 0;
+    printarClasificacion(clasificacion, num, max_Gp);
+
+    while(err==0){
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) err = 1;
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0){
+            printarClasificacion(clasificacion, num-1, max_Gp);
+            num--;
+        }
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < clasificacion->numClasificaciones){
+            printarClasificacion(clasificacion, num+1, max_Gp);
+            num++;
+        }
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp-1){
+            imprimirClasFinalTemp(clasificacion, num);
+        }
+    }
+}
+
 void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
-    int y_pilot = 90, err =0;
+    int y_pilot = 90;
     LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),50,50,0,"%s %s",
             "CLASSIFICACIO DE",clasificacion->clas_GPs[num].nombreGP);
@@ -91,22 +112,9 @@ void printarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
         y_pilot += 30;
     }
     LS_allegro_clear_and_paint(BLACK);
-    while(err==0){
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)){
-            err = 1;
-        }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0){
-            printarClasificacion(clasificacion, num-1, max_Gp);
-        }else if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < clasificacion->numClasificaciones){
-            printarClasificacion(clasificacion, num+1, max_Gp);
-        }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp-1){
-            err = imprimirClasFinalTemp(clasificacion, num);
-        }
-    }
 }
 
-int imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
+void imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
     int y_pilot = 90;
     Info_Class_GP final;
     final.clas = (Info_Class *) malloc(sizeof(Info_Class) * NUM_PILOTS);
@@ -128,11 +136,9 @@ int imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
         y_pilot += 30;
     }
     LS_allegro_clear_and_paint(BLACK);
-
     /*for (int j = 0; j < NUM_PILOTS ; ++j) {
         free(final.clas[j]);
     }*/
-    return 1;
 }
 
 void ordenacionPilotos_Puntos(Info_Class_GP *final, Clasificacion *clasificacion, int num){

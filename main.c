@@ -91,11 +91,13 @@ int main(int num_parametres, char **parametres) {
                             break;
                         case 3:
                             if (clasificacion.numClasificaciones > 0) {
-                                printarClasificacion(&clasificacion, clasificacion.numClasificaciones - 1, premios.numPremios);
+                                mostrarClasificacion(&clasificacion, clasificacion.numClasificaciones - 1, premios.numPremios);
                             } else printf("La temporada aun no ha empezado.\n");
                             break;
                         case 4:
-                            exportTemporada(clasificacion);
+                            if (clasificacion.numClasificaciones > 0) {
+                                exportTemporada(clasificacion);
+                            } else printf("La temporada aun no ha empezado.\n");
                             break;
                         case 0:
                             printf("\nHasta Pronto!\n");

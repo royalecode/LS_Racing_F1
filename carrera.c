@@ -14,11 +14,9 @@
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
 void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num) {
-    //int posicion = 1;
     printarInfoCarrera(premios, num);
     calcularTiempo(pilotos, premios, tiempos, piloto, num);
     mostrarCarrera(piloto, tiempos);
-    //mostrarFinalCarrera(piloto, posicion);
 }
 
 /**
@@ -200,8 +198,6 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
     _clock = clock();
     LS_allegro_clear_and_paint(BLACK);
 
-    tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera = tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera - tiempos->tiempos[NUM_PILOTS-1].tiempo_stops;
-    printf("%d temp car pilot\n",tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera );
     while (time <= tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera) {
         y_dorsal = 30, y_line = 37, y_car = 18;
         time = ((float) clock() - _clock) / 1000;
@@ -231,20 +227,12 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
             if (time <= tiempos->tiempos[i].tiempo_carrera) {
                 x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;
             }
-            /*if(x_car[i] >= 690 && i!=NUM_PILOTS-1){
-                j++;
-            }else if(x_car[i] >= 690 && i==NUM_PILOTS-1){
-                posicion = j++;
-            }*/
             y_car = y_car + 65;
             y_line = y_line + 65;
         }
         LS_allegro_clear_and_paint(BLACK);
     }
     al_destroy_bitmap(cotxe);
-    tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera = tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera + tiempos->tiempos[NUM_PILOTS-1].tiempo_stops;
-    printf("%d temp car pilot\n",tiempos->tiempos[NUM_PILOTS-1].tiempo_carrera );
-
     if (num_stops < tiempos->tiempos[NUM_PILOTS - 1].num_stops) {
         tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera =
                 tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera + (5 * tiempos->tiempos[NUM_PILOTS - 1].tiempo_stops);
