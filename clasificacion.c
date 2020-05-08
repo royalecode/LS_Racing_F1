@@ -15,8 +15,6 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
         clasificacion->clas_GPs[num].clas[i].puntos = 0;
         clasificacion->clas_GPs[num].clas[i].posicion = 0;
         clasificacion->clas_GPs[num].clas[i].dorsal = tiempos->tiempos[i].dorsal;
-        //printf("%s nombre piloto\n", clasificacion->clas_GPs[num].clas[i].nombre);
-        //printf("%d tiempo carrera\n", clasificacion->clas_GPs[num].clas[i].tiempo_carrera);
     }
     //ordenar los pilotos segun el tiempo_carrera para saber su posición en el gran premio
     for (int j = 0; j < NUM_PILOTS; ++j) {
@@ -78,12 +76,14 @@ void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
             printarClasificacion(clasificacion, num-1, max_Gp);
             num--;
         }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < clasificacion->numClasificaciones){
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < (clasificacion->numClasificaciones-1)){
             printarClasificacion(clasificacion, num+1, max_Gp);
             num++;
         }
         if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp-1){
+            num--;
             imprimirClasFinalTemp(clasificacion, num);
+            num++;
         }
     }
 }
