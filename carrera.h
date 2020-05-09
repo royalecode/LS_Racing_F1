@@ -20,7 +20,7 @@
 typedef struct {
     int tiempo_carrera;
     int tiempo_stops;
-    char nombre[25];
+    char nombre[MAX_STRING];
     int dorsal;
     int num_stops;
 } Tiempos_Corredor;

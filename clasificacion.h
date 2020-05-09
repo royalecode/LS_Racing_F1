@@ -15,13 +15,13 @@
 typedef struct {
     int tiempo_carrera;
     int posicion;
-    char nombre[25];
+    char nombre[MAX_STRING];
     int puntos;
     int dorsal;
 }Info_Class;
 
 typedef struct {
-    char nombreGP[25];
+    char nombreGP[MAX_STRING];
     Info_Class *clas;
 }Info_Class_GP;
 

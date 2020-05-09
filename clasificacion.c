@@ -40,10 +40,8 @@ void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasif
     }
 
     for (int l = 0; l < NUM_PILOTS; ++l) {
-        printf("%s nombre piloto\n", clasificacion->clas_GPs[num].clas[l].nombre);
-        printf("%d tiempo carrera\n", clasificacion->clas_GPs[num].clas[l].tiempo_carrera);
         clasificacion->clas_GPs[num].clas[l].posicion = l + 1;
-        printf("%d posicion del piloto\n", clasificacion->clas_GPs[num].clas[l].posicion);
+
         if (clasificacion->clas_GPs[num].clas[l].posicion == 1) {
             puntos_inici = 25;
         } else if (clasificacion->clas_GPs[num].clas[l].posicion == 2) {
@@ -76,7 +74,6 @@ void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasif
         } else {
             clasificacion->clas_GPs[num].clas[l].puntos = puntos_inici;
         }
-        printf("%d puntos del piloto\n", clasificacion->clas_GPs[num].clas[l].puntos);
         puntos_inici = 0;
     }
 }
@@ -91,7 +88,7 @@ void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasif
 void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
     int err = 0, control_final = 0;
     printarClasificacion(clasificacion, num);
-    printf("%d maxgp\n", max_Gp);
+
     while(err==0){
         if(LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) err = 1;
         if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0 && control_final==0){
