@@ -9,24 +9,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include "funciones_Basicas.h"
-
-typedef struct {
-    int posicion;
-    char nombre[MAX_STRING];
-    int velocidad;
-    int aceleracion;
-    int consumo;
-    int fiabilidad;
-    float tiempoBase;
-    int tiempoPitStop;
-    int numPitStop;
-}Premio;
+#include "listaGPs.h"
 
 typedef struct {
     int numPremios;
-    Premio *premios;
+    int *premios;
 }Premios;
 
-int leerPremios(char* path, Premios *premios);
+int leerPremios(char* path, ListaGPs *premios);
 
 #endif //GRUPO_4_PREMIO_H

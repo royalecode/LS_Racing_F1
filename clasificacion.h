@@ -40,7 +40,7 @@ typedef struct {
  * @param num               Gran premio en el cual nos encontramos
  * @param posicion          Puntero para aconseguir la posición de nuestro propio piloto para más tarde printarla por pantalla
  */
-void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion ,int num, int *posicion);
+void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasificacion, int num, int *posicion);
 
 /**
  * Función que printa por pantalla la información de la clasificación del gran premio en concreto que se le concreta por

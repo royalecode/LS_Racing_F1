@@ -4,7 +4,7 @@
 #include "conf_Coche.h"
 #include "tipos.h"
 #include "pieza.h"
-#include "premio.h"
+#include "listaGPs.h"
 #include "corredores.h"
 #include "carrera.h"
 #include "base.h"
@@ -17,11 +17,13 @@ int main(int num_parametres, char **parametres) {
     Corredor piloto;
     ConjuntoCorredores pilotos;
     CategoriaPiezas categoriaPiezas;
-    Premios premios;
+    ListaGPs premios;
     Base base;
     Tiempos tiempos;
     Pieza *confCoche;
     Clasificacion clasificacion;
+
+    premios = LISTAGPS_crea();
 
     clasificacion.numClasificaciones = 0;
 
@@ -79,11 +81,12 @@ int main(int num_parametres, char **parametres) {
                         case 2:
                             if (clasificacion.numClasificaciones < premios.numPremios && controlador == 1) {
                                 LS_allegro_clear_and_paint(BLACK);
-                                printf("Preparando carrera #%d: %s ...\n", clasificacion.numClasificaciones + 1, premios.premios[clasificacion.numClasificaciones].nombre);
-                                cargarCarrera(&premios, &pilotos, &tiempos, &piloto, clasificacion.numClasificaciones);
-                                guardarClasificacion(&tiempos, &premios, &clasificacion, clasificacion.numClasificaciones, &posicion);
+                                printf("Preparando carrera #%d: %s ...\n", clasificacion.numClasificaciones + 1, LISTAGPS_consulta(premios).nombre);
+                                cargarCarrera(LISTAGPS_consulta(premios), &pilotos, &tiempos, &piloto);
+                                guardarClasificacion(&tiempos, LISTAGPS_consulta(premios), &clasificacion, clasificacion.numClasificaciones, &posicion);
                                 mostrarFinalCarrera(&piloto, &posicion);
                                 clasificacion.numClasificaciones++;
+                                premios = LISTAGPS_avanza(premios);
                             } else {
                                 if (controlador != 1) printf("Aun no has configurado el coche.\n");
                                 else printf("Ya has finalizado la temporada.\n");

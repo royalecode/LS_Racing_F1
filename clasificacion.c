@@ -14,9 +14,9 @@
  * @param num               Gran premio en el cual nos encontramos
  * @param posicion          Puntero para aconseguir la posición de nuestro propio piloto para más tarde printarla por pantalla
  */
-void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *clasificacion, int num, int *posicion){
+void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasificacion, int num, int *posicion){
     int petit, puntos_inici = 0;
-    strcpy(clasificacion->clas_GPs[num].nombreGP , premios->premios[num].nombre);
+    strcpy(clasificacion->clas_GPs[num].nombreGP ,premio.nombre);
     Info_Class aux;
 
     for (int i = 0; i < NUM_PILOTS ; ++i) {

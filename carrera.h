@@ -14,26 +14,27 @@
 #include "tipos.h"
 #include "tiempo.h"
 #include <time.h>
+
 #define NUM_PILOTS 8
 
-typedef struct{
+typedef struct {
     int tiempo_carrera;
     int tiempo_stops;
     char nombre[25];
     int dorsal;
     int num_stops;
-}Tiempos_Corredor;
+} Tiempos_Corredor;
 
 typedef struct {
     Tiempos_Corredor *tiempos;
-}Tiempos;
+} Tiempos;
 
 /**
  * Funcion que implementa una serie de salidas por pantalla que muestran una información especifica del gran premio
  * @param premios   Estructura donde hay guardad la información de todos los gran premios
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void printarInfoCarrera(Premios *premios, int num);
+void printarInfoCarrera(Premio premio);
 
 /**
  * Función con finalidad gráfica de printar el semáforo incial antes de empezar la carrera
@@ -58,7 +59,7 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos);
  * @param piloto    Infromación solamento de nuestro piloto y su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void calcularTiempo(ConjuntoCorredores *pilotos, Premios *premios, Tiempos *tiempos, Corredor *piloto, int num);
+void calcularTiempo(ConjuntoCorredores *pilotos, Premio premio, Tiempos *tiempos, Corredor *piloto);
 
 /**
  * Función que implementa la salida por pantalla de la posición de nuestro piloto al final de la carrera
@@ -76,7 +77,7 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion);
  * @param piloto    Información solamente de nuestro propio piloto y la configuración de su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void cargarCarrera(Premios *premios, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto, int num);
+void cargarCarrera(Premio premio, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto);
 
 /**
  * Función especifica para printar casi toda la parte gràfica de la pantalla específica de la carrera. Como la información
