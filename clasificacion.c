@@ -91,7 +91,7 @@ void guardarClasificacion(Tiempos *tiempos, Premios *premios, Clasificacion *cla
 void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
     int err = 0, control_final = 0;
     printarClasificacion(clasificacion, num);
-
+    printf("%d maxgp\n", max_Gp);
     while(err==0){
         if(LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) err = 1;
         if(LS_allegro_key_pressed(ALLEGRO_KEY_A) && num > 0 && control_final==0){
@@ -102,8 +102,7 @@ void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
             printarClasificacion(clasificacion, num+1);
             num++;
         }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == max_Gp){
-            num--;
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == (max_Gp-1)){
             imprimirClasFinalTemp(clasificacion, num);
             control_final = 1;
         }
@@ -169,9 +168,7 @@ void imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
         y_pilot += 30;
     }
     LS_allegro_clear_and_paint(BLACK);
-    /*for (int j = 0; j < NUM_PILOTS ; ++j) {
-        free(final.clas[j]);
-    }*/
+    free(final.clas);
 }
 
 /**
