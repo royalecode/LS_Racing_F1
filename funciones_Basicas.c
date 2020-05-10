@@ -4,7 +4,16 @@
 
 #include "funciones_Basicas.h"
 
-// Comproba si tots els elements d'una string son numeros
+
+void initScreen(){
+
+}
+
+/**
+ * Comproba si tots els elements d'una string son numeros
+ * @param str
+ * @return boolea
+ */
 int isNumber(char *str){
     int i;
     for (i = 0; i < strlen(str) ; ++i) {
@@ -13,7 +22,13 @@ int isNumber(char *str){
     return 1;
 }
 
-//Escaneixa un numero i comproba que estigui entre el max i el min definits.
+/**
+ * Escaneixa un numero i comproba que estigui entre el max i el min definits.
+ * @param min   Valor mínim permès
+ * @param max   Valor màxim permès
+ * @param msg   Missatge d'error
+ * @return      Retorna el valor escaneijat
+ */
 int scanRange(int min, int max, char* msg){
     char line[100];
     int num = -100, err = 1;
@@ -35,12 +50,11 @@ int scanRange(int min, int max, char* msg){
     return num;
 }
 
-//funcion que mira si un caracter es numerico o no, es decir entre el 0 y el 9
-int control_numero(int num, int a, int b){
-    if(num >= a && num <= b) return 1;
-    else return 0;
-}
-
+/**
+ * Funció que escaneija el numero enter d'una linia d'un fitxer de text
+ * @param file
+ * @return
+ */
 int fscanfNumber(FILE* file){
     char line[100];
     fgets(line,100, file);
@@ -48,6 +62,12 @@ int fscanfNumber(FILE* file){
     return atoi(line);
 }
 
+
+/**
+ * Funció que escaneija el numero decimal d'una linia d'un fitxer de text
+ * @param file
+ * @return
+ */
 float fscanfFloat(FILE* file){
     char line[100];
     float num;
@@ -56,6 +76,12 @@ float fscanfFloat(FILE* file){
     return num;
 }
 
+
+/**
+ * Funció que una cadena de caràcters d'una linia d'un fitxer de text
+ * @param file
+ * @return
+ */
 void fscanfString(FILE* file, char* line){
     fgets(line,25, file);
     if (line[strlen(line)-1] == '\n') line[strlen(line)-1] = '\0';

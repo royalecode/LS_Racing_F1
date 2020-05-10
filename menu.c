@@ -31,7 +31,7 @@ int leer_opcion() {
     } else {
         cad[strlen(cad-1)]='\0';
         op = atoi(cad);
-        while ((control_numero(op, 1, 4)) != 1  && controlador == 0) {
+        while ((op < 1 || op > 4) && controlador == 0) {
             printf("\nError. Opcion no valida.\n");
             printarMenu();
             fgets(cad, MAX_STRING, stdin);
@@ -49,13 +49,10 @@ int leer_opcion() {
     return op;
 }
 
-void pantallaMenu(){
-    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 500 - 374, 250, 0, "%s",
-                  "REGRESE AL TERMINAL PARA CONTINUAR");
-    LS_allegro_clear_and_paint(BLACK);
-    LS_allegro_console_fflush();
-}
-
+/**
+ * Printa un missatge d'error si la lectura dels fichers no ha funcionat correctament
+ * @param err Codi error
+ */
 void printFileErr(int err){
     switch (err){
         case 1:

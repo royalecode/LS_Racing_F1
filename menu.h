@@ -23,13 +23,8 @@ void printarMenu();
 int leer_opcion();
 
 /**
- * Procedimiento que cambia la pantalla tras terminar con una funcionalidad
- */
-void pantallaMenu();
-
-/**
  * Procedimiento que informa de los posibles errores con la lectura de ficheros inicial
  */
-void printFileErr();
+void printFileErr(int err);
 
 #endif //GRUPO_4_MENU_H

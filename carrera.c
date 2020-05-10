@@ -14,6 +14,9 @@
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
 void cargarCarrera(Premio premio, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto) {
+    //Inicialitzem Allegro
+    LS_allegro_init(1000, 600, "Carrera");
+
     printarInfoCarrera(premio);
     calcularTiempo(pilotos, premio, tiempos, piloto);
     mostrarCarrera(piloto, tiempos);
@@ -256,6 +259,8 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
     while (err == 0) {
         if (LS_allegro_key_pressed(ALLEGRO_KEY_ENTER)) {
             err = 1;
+            //Tanquem la finestra gràfica
+            LS_allegro_exit();
         }
     }
 }

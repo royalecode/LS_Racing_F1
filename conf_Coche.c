@@ -190,6 +190,9 @@ void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *pie
 
     printf("\nCargando configurador...\n");
 
+    //Inicialitzem Allegro
+    LS_allegro_init(1000, 600, "Configuracion del coche");
+
     ip = getIndexPieza(ic, piezas, categoriaPiezas);
 
     //Garaje inicial
@@ -225,6 +228,9 @@ void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *pie
             printGaraje(piezas, categoriaPiezas, ic, ip);
         }
     }
+
+    //Tanquem la finestra gràfica
+    LS_allegro_exit();
 
     //Al salir a partir de la configuracion seleccionada determinadmos algunos atributos del piloto
     setInfoPiloto(piloto, piezas, categoriaPiezas.numeroCategorias);

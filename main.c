@@ -27,7 +27,7 @@ int main(int num_parametres, char **parametres) {
 
     clasificacion.numClasificaciones = 0;
 
-    if(num_parametres != 5) err = 3;
+    if (num_parametres != 5) err = 3;
     if (!err) err = leerPiezas(parametres[1], &categoriaPiezas);
     if (!err) err = leerPremios(parametres[2], &premios);
     if (!err) err = leerCorredores(parametres[3], &pilotos);
@@ -35,7 +35,7 @@ int main(int num_parametres, char **parametres) {
 
     printFileErr(err);
 
-    if(!err) {
+    if (!err) {
         confCoche = (Pieza *) malloc(sizeof(Pieza) * categoriaPiezas.numeroCategorias);
         for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
             confCoche[i] = categoriaPiezas.categorias[i].piezas[0];
@@ -45,87 +45,61 @@ int main(int num_parametres, char **parametres) {
             clasificacion.clas_GPs[i].clas = (Info_Class *) malloc(sizeof(Info_Class) * NUM_PILOTS);
         }
 
-        //Inicialitzem Allegro
-        LS_allegro_init(1000, 600, "Projecte 2");
 
-        //Bucle infinit del joc
-        while (!nSortir) {
-
-            //Escoltem el teclat esperant la tecla ESC
-            if (LS_allegro_key_pressed(ALLEGRO_KEY_ESCAPE)) {
-                nSortir = 1;
-            }
-
-            al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 500 - 264, 200, 0, "%s",
-                          "Bienvenidos a LS Racing!");
-            al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 500 - 354, 240, 0, "%s",
-                          "Acceda al terminal para ver las funcionalidades disponibles");
-
-            //Pintem la pantalla de la finestra gràfica
-            LS_allegro_clear_and_paint(BLACK);
-
-            if (num_parametres == 5) {
-                printf("Bienvenidos a LS Racing!\n");
-                while (opcion != 0) {
-                    printarMenu();
-                    opcion = leer_opcion();
-                    switch (opcion) {
-                        case 1:
-                            if (!controlador) {
-                                leerPiloto(&piloto);
-                                controlador = 1;
-                            }
-                            mostrarGaraje(&piloto, categoriaPiezas, confCoche);
-                            pantallaMenu();
-                            break;
-                        case 2:
-                            if (clasificacion.numClasificaciones < premios.numPremios && controlador == 1) {
-                                LS_allegro_clear_and_paint(BLACK);
-                                printf("Preparando carrera #%d: %s ...\n", clasificacion.numClasificaciones + 1, LISTAGPS_consulta(premios).nombre);
-                                cargarCarrera(LISTAGPS_consulta(premios), &pilotos, &tiempos, &piloto);
-                                guardarClasificacion(&tiempos, LISTAGPS_consulta(premios), &clasificacion, clasificacion.numClasificaciones, &posicion);
-                                mostrarFinalCarrera(&piloto, &posicion);
-                                clasificacion.numClasificaciones++;
-                                premios = LISTAGPS_avanza(premios);
-                            } else {
-                                if (controlador != 1) printf("Aun no has configurado el coche.\n");
-                                else printf("Ya has finalizado la temporada.\n");
-                            }
-                            break;
-                        case 3:
-                            if (clasificacion.numClasificaciones > 0) {
-                                printf("Mostrando clasificacion...\n");
-                                mostrarClasificacion(&clasificacion, clasificacion.numClasificaciones - 1, premios.numPremios);
-                                pantallaMenu();
-                            } else printf("La temporada aun no ha empezado.\n");
-                            break;
-                        case 4:
-                            if (clasificacion.numClasificaciones > 0) {
-                                exportTemporada(clasificacion);
-                            } else printf("La temporada aun no ha empezado.\n");
-                            break;
-                        case 0:
-                            printf("\nHasta Pronto!\n");
-                            nSortir = 1;
-                            break;
+        printf("Bienvenidos a LS Racing!\n");
+        while (opcion != 0) {
+            printarMenu();
+            opcion = leer_opcion();
+            switch (opcion) {
+                case 1:
+                    if (!controlador) {
+                        leerPiloto(&piloto);
+                        controlador = 1;
                     }
-                    //LS_allegro_clear_and_paint(BLACK);
-                }
-            } else {
-                printf("Error. El programa tiene que recibir 4 argumentos.\n");
-                nSortir = 1;
+                    mostrarGaraje(&piloto, categoriaPiezas, confCoche);
+                    break;
+                case 2:
+                    if (clasificacion.numClasificaciones < premios.numPremios && controlador == 1) {
+                        printf("Preparando carrera #%d: %s ...\n", clasificacion.numClasificaciones + 1,
+                               LISTAGPS_consulta(premios).nombre);
+                        cargarCarrera(LISTAGPS_consulta(premios), &pilotos, &tiempos, &piloto);
+                        guardarClasificacion(&tiempos, LISTAGPS_consulta(premios), &clasificacion,
+                                             clasificacion.numClasificaciones, &posicion);
+                        mostrarFinalCarrera(&piloto, &posicion);
+                        clasificacion.numClasificaciones++;
+                        premios = LISTAGPS_avanza(premios);
+                    } else {
+                        if (controlador != 1) printf("Aun no has configurado el coche.\n");
+                        else printf("Ya has finalizado la temporada.\n");
+                    }
+                    break;
+                case 3:
+                    if (clasificacion.numClasificaciones > 0) {
+                        printf("Mostrando clasificacion...\n");
+                        mostrarClasificacion(&clasificacion, clasificacion.numClasificaciones - 1,
+                                             premios.numPremios);
+                    } else printf("La temporada aun no ha empezado.\n");
+                    break;
+                case 4:
+                    if (clasificacion.numClasificaciones > 0) {
+                        exportTemporada(clasificacion);
+                    } else printf("La temporada aun no ha empezado.\n");
+                    break;
+                case 0:
+                    printf("\nHasta Pronto!\n");
+                    nSortir = 1;
+                    break;
             }
-            //LS_allegro_clear_and_paint(BLACK);
         }
 
+
+        //LLiberem tota le memòria dinàmica utilitzada
+        LISTAGPS_destruye(premios);
         free(confCoche);
-        for (int j = 0; j < premios.numPremios; ++j) {
-            free(clasificacion.clas_GPs[j].clas);
+        for (i = 0; i < clasificacion.numClasificaciones; ++i) {
+            free(clasificacion.clas_GPs[i].clas);
         }
         free(clasificacion.clas_GPs);
-
-        //Tanquem la finestra gràfica
-        LS_allegro_exit();
     }
     return 0;
 }

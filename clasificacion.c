@@ -87,6 +87,10 @@ void guardarClasificacion(Tiempos *tiempos, Premio premio, Clasificacion *clasif
  */
 void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
     int err = 0, control_final = 0;
+
+    //Inicialitzem Allegro
+    LS_allegro_init(1000, 600, "Clasificacion");
+
     printarClasificacion(clasificacion, num);
 
     while(err==0){
@@ -95,15 +99,19 @@ void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
             printarClasificacion(clasificacion, num-1);
             num--;
         }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num < (clasificacion->numClasificaciones-1) && control_final==0){
-            printarClasificacion(clasificacion, num+1);
-            num++;
-        }
-        if(LS_allegro_key_pressed(ALLEGRO_KEY_D) && num == (max_Gp-1)){
-            imprimirClasFinalTemp(clasificacion, num);
-            control_final = 1;
+        if(LS_allegro_key_pressed(ALLEGRO_KEY_D)){
+            if(num < (clasificacion->numClasificaciones-1) && control_final==0) {
+                printarClasificacion(clasificacion, num + 1);
+                num++;
+            }
+            if(num == (max_Gp-1)){
+                imprimirClasFinalTemp(clasificacion, num);
+                control_final = 1;
+            }
         }
     }
+    //Tanquem la finestra gràfica
+    LS_allegro_exit();
 }
 
 /**
@@ -135,6 +143,9 @@ void printarClasificacion(Clasificacion *clasificacion, int num){
         if(i==2) y_pilot += 20;
         y_pilot += 30;
     }
+
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 845, 580, 0, "(ESC): SALIR");
+
     LS_allegro_clear_and_paint(BLACK);
 }
 
