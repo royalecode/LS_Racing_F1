@@ -203,7 +203,7 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
 
     while (time <= tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera) {
         y_dorsal = 30, y_line = 37, y_car = 18;
-        time = ((float) clock() - _clock) / 1000;
+        time = ((float) clock() - _clock) / CLOCKS_PER_SEC;
         if (LS_allegro_key_pressed(ALLEGRO_KEY_R)) {
             stop_valido = 1;
         }
@@ -225,7 +225,7 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
             al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d",
                           tiempos->tiempos[i].dorsal);
             al_draw_line(80, y_line, 80 + x_line, y_line, LS_allegro_get_color(BLACK), 3);
-            al_draw_scaled_bitmap(cotxe, 0, 0, 80, 40, x_car[i], y_car, 60, 30, 0);
+            al_draw_scaled_bitmap(cotxe, 0, 0, al_get_bitmap_width(cotxe), al_get_bitmap_height(cotxe), x_car[i], y_car, 60, 30, 0);
             y_dorsal = y_dorsal + 65;
             if (time <= tiempos->tiempos[i].tiempo_carrera) {
                 x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;

@@ -44,7 +44,7 @@ void printFlechasImg(int x, int y, int px, char *img) {
     photo = al_load_bitmap(path);
 
     //Print foto
-    al_draw_scaled_bitmap(photo, 0, 0, 500, 500, 4 * px + x, 4 * px + y, 4 * px, 4 * px, 0);
+    al_draw_scaled_bitmap(photo, 0, 0, al_get_bitmap_width(photo), al_get_bitmap_height(photo), 4 * px + x, 4 * px + y, 4 * px, 4 * px, 0);
 
     //Print flechas
     al_draw_filled_triangle(6 * px + x, 0 * px + y, 4 * px + x, 2 * px + y, 8 * px + x, 2 * px + y,
@@ -145,7 +145,7 @@ void printGaraje(Pieza *piezas, CategoriaPiezas categoriaPiezas, int ic, int ip)
     ALLEGRO_BITMAP *garaje;
 
     garaje = al_load_bitmap("../imgs/boxes2.png");
-    al_draw_scaled_bitmap(garaje, 0, 0, 492, 550, 0, 0, 600, 600, 0);
+    al_draw_scaled_bitmap(garaje, 0, 0, al_get_bitmap_width(garaje), al_get_bitmap_height(garaje), 0, 0, 600, 600, 0);
     printFlechasImg(625, 75, 15, categoriaPiezas.categorias[ic].nombre);
     printPieza(categoriaPiezas, ic, ip);
     printConf(categoriaPiezas, piezas, ic);
