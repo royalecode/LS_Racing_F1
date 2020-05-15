@@ -2,7 +2,7 @@
 // Created by edmon on 18/4/2020.
 //
 
-#include "corredores.h"
+#include "corredor.h"
 
 /**
  * Cada vez que llamamos esta función, lee directamente toda la información de un corredor únicamente. Cuando la llamemos
@@ -10,8 +10,8 @@
  * @param file          Fichero de donde tiene que leer la información
  * @param corredor      Estructura donde se va a guardar la información leída
  */
-void leerCorredor(FILE *file, Corredores *corredor){
-    fread(corredor, sizeof(Corredores), 1, file);
+void leerCorredor(FILE *file, Corredor *corredor){
+    fread(corredor, sizeof(Corredor), 1, file);
     //printf("%s\n", corredor->escuderia);
 }
 
@@ -21,7 +21,7 @@ void leerCorredor(FILE *file, Corredores *corredor){
  * @param pilotos   Estructura donde vamos a guardar la información de todos los pilotos
  * @return          Devuelve un entero que nos permitira saber si ha habido algún error a la hora de abrir el fichero
  */
-int leerCorredores(char* path, ConjuntoCorredores *pilotos){
+int leerCorredores(char* path, Corredores *pilotos){
     FILE *file;
     int i, err = 0;
 
@@ -31,7 +31,7 @@ int leerCorredores(char* path, ConjuntoCorredores *pilotos){
     }
     else{
         pilotos->num_corredors = 7;
-        pilotos->corredores = (Corredores*) malloc(sizeof(Corredores) * pilotos->num_corredors);
+        pilotos->corredores = (Corredor*) malloc(sizeof(Corredor) * pilotos->num_corredors);
 
         for (i = 0; i < pilotos->num_corredors; ++i) {
             leerCorredor(file, &pilotos->corredores[i]);

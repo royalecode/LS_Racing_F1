@@ -4,6 +4,12 @@
 
 #include "pieza.h"
 
+
+/**
+ * Lee del fichero de piezas la información de una pieza
+ * @param file  Puntero del archivo de lectura
+ * @param pieza Estructura donde guardaremos la información
+ */
 void leerPieza(FILE *file, Pieza *pieza){
     fscanfString(file, pieza->nombre);
     pieza->velocidad = fscanfNumber(file);
@@ -12,6 +18,11 @@ void leerPieza(FILE *file, Pieza *pieza){
     pieza->fiabilidad = fscanfNumber(file);
 }
 
+/**
+ * Lee del fichero de piezas la información de una categoria incluidas sus piezas
+ * @param file          Puntero del archivo de lectura
+ * @param categoria     Estructura donde guardaremos la información
+ */
 void leerCategoria(FILE *file, Categoria *categoria){
     int i;
     fscanfString(file, categoria->nombre);
@@ -23,6 +34,12 @@ void leerCategoria(FILE *file, Categoria *categoria){
     }
 }
 
+/**
+ * Función que lee toda la información del fichero de piezas
+ * @param path              String que contiene la ruta del fichero
+ * @param categoriaPiezas   Estructura donde guardaremos la información
+ * @return                  Devuelve un si ha habido algun error
+ */
 int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas){
     FILE *file;
     int i, err = 0;

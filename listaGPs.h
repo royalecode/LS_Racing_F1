@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include "funciones_Basicas.h"
 
+/**
+ * Lista Ordeana adaptada a contener estructuras del tipo Premio
+ */
+
 typedef struct {
     int posicion;
     char nombre[MAX_STRING];

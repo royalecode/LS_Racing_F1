@@ -3,7 +3,6 @@
 //
 
 #include "conf_Coche.h"
-#include "funciones_Basicas.h"
 
 /**
  * Procedimiento que pide al usuario por terminal distintos datos del piloto

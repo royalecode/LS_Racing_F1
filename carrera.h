@@ -10,8 +10,7 @@
 #include "LS_allegro.h"
 #include "premio.h"
 #include <time.h>
-#include "corredores.h"
-#include "tipos.h"
+#include "corredor.h"
 #include "tiempo.h"
 #include <time.h>
 
@@ -59,7 +58,7 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos);
  * @param piloto    Infromación solamento de nuestro piloto y su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void calcularTiempo(ConjuntoCorredores *pilotos, Premio premio, Tiempos *tiempos, Corredor *piloto);
+void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corredor *piloto);
 
 /**
  * Función que implementa la salida por pantalla de la posición de nuestro piloto al final de la carrera
@@ -77,7 +76,7 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion);
  * @param piloto    Información solamente de nuestro propio piloto y la configuración de su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void cargarCarrera(Premio premio, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto);
+void cargarCarrera(Premio premio, Corredores *pilotos, Tiempos *tiempos, Corredor *piloto);
 
 /**
  * Función especifica para printar casi toda la parte gràfica de la pantalla específica de la carrera. Como la información

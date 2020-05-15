@@ -11,11 +11,41 @@
 
 #define MAX_STRING 25+1
 
+/**
+ * Comprueba si todos los elementos de una string són números
+ * @param str
+ * @return boolea
+ */
 int isNumber(char *str);
-int scanRange(int min, int max, char* msg);
-//int atoi(const char *cad);
-int fscanfNumber(FILE* file);
-float fscanfFloat(FILE* file);
-void fscanfString(FILE* file, char* line);
+
+/**
+ * Escanea un número y comprueba que este entre el max y el min definidos.
+ * @param min   Valor mínimo permitido
+ * @param max   Valor máximo permitido
+ * @param msg   Mensaje de error
+ * @return      Devuelve el valor escaneado
+ */
+int scanRange(int min, int max, char *msg);
+
+/**
+ * Función que escanea el numero entero de una linea de un fichero de texto
+ * @param file
+ * @return
+ */
+int fscanfNumber(FILE *file);
+
+/**
+ * Función que escanea el número decimal de una linea de un fichero de texto
+ * @param file
+ * @return
+ */
+float fscanfFloat(FILE *file);
+
+/**
+ * Función que escanea una cadena de caràcteres de una linia de un fichero de texto
+ * @param file
+ * @return
+ */
+void fscanfString(FILE *file, char *line);
 
 #endif //GRUPO_4_FUNCIONES_BASICAS_H

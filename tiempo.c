@@ -4,6 +4,10 @@
 
 #include "tiempo.h"
 
+/**
+ * Función que pausa el programa un tiempo determinado
+ * @param ms Tiempo de pausa en microsegundos
+ */
 void temporizador(int ms){
     float time = (float)ms / 1000;
     float clock1, clock2;

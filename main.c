@@ -2,10 +2,9 @@
 #include "LS_allegro.h"
 #include "menu.h"
 #include "conf_Coche.h"
-#include "tipos.h"
 #include "pieza.h"
 #include "listaGPs.h"
-#include "corredores.h"
+#include "corredor.h"
 #include "carrera.h"
 #include "base.h"
 #include "clasificacion.h"
@@ -15,7 +14,7 @@ int main(int num_parametres, char **parametres) {
 
     int nSortir = 0, opcion = 100, controlador = 0, i, err = 0, posicion = 1;
     Corredor piloto;
-    ConjuntoCorredores pilotos;
+    Corredores pilotos;
     CategoriaPiezas categoriaPiezas;
     ListaGPs premios;
     Base base;

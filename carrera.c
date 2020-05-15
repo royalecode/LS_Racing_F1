@@ -13,7 +13,7 @@
  * @param piloto    Información solamente de nuestro propio piloto y la configuración de su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void cargarCarrera(Premio premio, ConjuntoCorredores *pilotos, Tiempos *tiempos, Corredor *piloto) {
+void cargarCarrera(Premio premio, Corredores *pilotos, Tiempos *tiempos, Corredor *piloto) {
     //Inicialitzem Allegro
     LS_allegro_init(1000, 600, "Carrera");
 
@@ -103,7 +103,7 @@ void mostrarSemaforo(int vermelles) {
  * @param piloto    Infromación solamento de nuestro piloto y su coche
  * @param num       Entero que indica en que gran premio nos encontramos dentro de la temporada
  */
-void calcularTiempo(ConjuntoCorredores *pilotos, Premio premio, Tiempos *tiempos, Corredor *piloto) {
+void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corredor *piloto) {
     int i, tiempo_base_seg, diferencias, num_pit_stops, coef_habilidad, pixeles_linea = 700;
     tiempos->tiempos = (Tiempos_Corredor *) malloc(sizeof(Tiempos_Corredor) * NUM_PILOTS);
     tiempo_base_seg = (premio.tiempoBase) * 60;

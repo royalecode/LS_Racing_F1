@@ -29,6 +29,13 @@ typedef struct {
     Categoria *categorias;
 }CategoriaPiezas;
 
+
+/**
+ * Función que lee toda la información del fichero de piezas
+ * @param path              String que contiene la ruta del fichero
+ * @param categoriaPiezas   Estructura donde guardaremos la información
+ * @return                  Devuelve un 1 si ha habido algún error
+ */
 int leerPiezas(char* path, CategoriaPiezas *categoriaPiezas);
 
 #endif //GRUPO_4_PIEZA_H

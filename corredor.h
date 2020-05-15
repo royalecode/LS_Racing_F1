@@ -2,8 +2,8 @@
 // Created by edmon on 18/4/2020.
 //
 
-#ifndef GRUPO_4_CORREDORES_H
-#define GRUPO_4_CORREDORES_H
+#ifndef GRUPO_4_CORREDOR_H
+#define GRUPO_4_CORREDOR_H
 
 #include <stdio.h>
 #include <string.h>
@@ -22,12 +22,12 @@ typedef struct{
     int cond_fisica;
     int temperamento;
     int gestion_neumaticos;
-}Corredores;
+}Corredor;
 
 typedef struct {
     int num_corredors;
-    Corredores *corredores;
-}ConjuntoCorredores;
+    Corredor *corredores;
+}Corredores;
 
 /**
  * Función para leer el fichero con la información de corredores que se pasa por parámetro en el main
@@ -35,6 +35,6 @@ typedef struct {
  * @param pilotos   Estructura donde vamos a guardar la información de todos los pilotos
  * @return          Devuelve un entero que nos permitira saber si ha habido algún error a la hora de abrir el fichero
  */
-int leerCorredores(char* path, ConjuntoCorredores *Pilotos);
+int leerCorredores(char* path, Corredores *Pilotos);
 
-#endif //GRUPO_4_CORREDORES_H
+#endif //GRUPO_4_CORREDOR_H

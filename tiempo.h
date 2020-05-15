@@ -7,7 +7,10 @@
 
 #include <time.h>
 
-
+/**
+ * Función que pausa el programa un tiempo determinado
+ * @param ms Tiempo de pausa en microsegundos
+ */
 void temporizador(int ms);
 
 #endif //GRUPO_4_TIEMPO_H

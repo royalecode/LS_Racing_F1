@@ -122,7 +122,7 @@ void mostrarClasificacion(Clasificacion *clasificacion, int num, int max_Gp){
  */
 void printarClasificacion(Clasificacion *clasificacion, int num){
     int y_pilot = 90;
-    LS_allegro_clear_and_paint(BLACK);
+    //LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),50,50,0,"%s %s",
             "CLASSIFICACIO DE",clasificacion->clas_GPs[num].nombreGP);
 
@@ -160,7 +160,7 @@ void imprimirClasFinalTemp(Clasificacion *clasificacion, int num){
     final.clas = (Info_Class *) malloc(sizeof(Info_Class) * NUM_PILOTS);
     ordenacionPilotos_Puntos(&final, clasificacion, num);
 
-    LS_allegro_clear_and_paint(BLACK);
+    //LS_allegro_clear_and_paint(BLACK);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),50,50,0,"%s","CLASSIFICACIO FINAL DE LA TEMPORADA");
     for (int i = 0; i < NUM_PILOTS ; ++i) {
         if (i == 0) {

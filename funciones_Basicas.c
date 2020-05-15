@@ -10,7 +10,7 @@ void initScreen(){
 }
 
 /**
- * Comproba si tots els elements d'una string son numeros
+ * Comprueba si todos los elementos de una string són números
  * @param str
  * @return boolea
  */
@@ -23,11 +23,11 @@ int isNumber(char *str){
 }
 
 /**
- * Escaneixa un numero i comproba que estigui entre el max i el min definits.
- * @param min   Valor mínim permès
- * @param max   Valor màxim permès
- * @param msg   Missatge d'error
- * @return      Retorna el valor escaneijat
+ * Escanea un número y comprueba que este entre el max y el min definidos.
+ * @param min   Valor mínimo permitido
+ * @param max   Valor máximo permitido
+ * @param msg   Mensaje de error
+ * @return      Devuelve el valor escaneado
  */
 int scanRange(int min, int max, char* msg){
     char line[100];
@@ -51,7 +51,7 @@ int scanRange(int min, int max, char* msg){
 }
 
 /**
- * Funció que escaneija el numero enter d'una linia d'un fitxer de text
+ * Función que escanea el numero entero de una linea de un fichero de texto
  * @param file
  * @return
  */
@@ -64,7 +64,7 @@ int fscanfNumber(FILE* file){
 
 
 /**
- * Funció que escaneija el numero decimal d'una linia d'un fitxer de text
+ * Función que escanea el número decimal de una linea de un fichero de texto
  * @param file
  * @return
  */
@@ -78,7 +78,7 @@ float fscanfFloat(FILE* file){
 
 
 /**
- * Funció que una cadena de caràcters d'una linia d'un fitxer de text
+ * Función que escanea una cadena de caràcteres de una linia de un fichero de texto
  * @param file
  * @return
  */

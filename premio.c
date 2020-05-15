@@ -4,6 +4,11 @@
 
 #include "premio.h"
 
+/**
+ * Lee del fichero de GPs la información de un premio
+ * @param file      Puntero del archivo de lectura
+ * @param premios   Lista donde guardaremos la información
+ */
 void leerPremio(FILE *file, ListaGPs *premios){
     Premio premio;
     premio.posicion = fscanfNumber(file);
@@ -18,6 +23,12 @@ void leerPremio(FILE *file, ListaGPs *premios){
     *premios = LISTAGPS_insertaOrd(*premios, premio);
 }
 
+/**
+ * Función que lee toda la información del fichero de GPs
+ * @param path              String que contiene la ruta del fichero
+ * @param ListaGPs          Lista ordenada donde guardaremos la información
+ * @return                  Devuelve un si ha habido algun error
+ */
 int leerPremios(char* path, ListaGPs *premios){
     FILE *file;
     int i, err = 0;

@@ -7,11 +7,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "tipos.h"
 #include <string.h>
 #include "pieza.h"
 #include "funciones_Basicas.h"
 #include "LS_allegro.h"
+#include "corredor.h"
 
 /**
  * Procedimiento que pide al usuario por terminal distintos datos del piloto
