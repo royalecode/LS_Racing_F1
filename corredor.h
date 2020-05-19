@@ -10,6 +10,10 @@
 #include <stdlib.h>
 #include "funciones_Basicas.h"
 
+/**
+ * La estrucutra Corredor contiene los atributos particulares de cada piloto. La estructura Corredores va a almacenar
+ * un array dinàmico de 7 pilotos.
+ */
 typedef struct{
     char nombre[MAX_STRING];
     int dorsal;

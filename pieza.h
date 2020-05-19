@@ -10,6 +10,9 @@
 #include <stdlib.h>
 #include "funciones_Basicas.h"
 
+/**
+ * Estructura de los atributos particulares de cada pieza
+ */
 typedef struct {
     char nombre[MAX_STRING];
     int velocidad;
@@ -18,12 +21,18 @@ typedef struct {
     int fiabilidad;
 }Pieza;
 
+/**
+ * Estrucutra para almacenar la información de cata categoria que estara formada por un array dinàmico de x piezas
+ */
 typedef struct {
     char nombre[MAX_STRING];
     int cantidad;
     Pieza *piezas;
 }Categoria;
 
+/**
+ * Estrucutra globla de categorias que contiene un array dinàmico con la cantidad de categorias del proyecto
+ */
 typedef struct {
     int numeroCategorias;
     Categoria *categorias;

@@ -16,6 +16,10 @@
 
 #define NUM_PILOTS 8
 
+/**
+ * Estructura tiempos_corredor almacena características de la carrera como (pit_stops, duración, información personal del piloto)
+ * por un piloto en concreto. Y luego se va a crear un array para que cada piloto disponga de esta estructura.
+ */
 typedef struct {
     int tiempo_carrera;
     int tiempo_stops;
@@ -24,6 +28,12 @@ typedef struct {
     int num_stops;
 } Tiempos_Corredor;
 
+/**
+ * Estructura Tiempos almacena un array dinámico con tantas posicones como tantos pilotos haya en el juego. Y para cada posicion
+ * que va a corresponder a un piloto en concreto, guardaremos la estrucutra tiempos_corredor en su interior. Estos tiempos son
+ * utilizados a lo largo del modulo carrera para la interfaz gráfica y además para aquellos pilotos que hay que simular una vez el
+ * nuestro ya ha ganado para más tarde concluir con una correcta clasifiación según los tiempos.
+ */
 typedef struct {
     Tiempos_Corredor *tiempos;
 } Tiempos;

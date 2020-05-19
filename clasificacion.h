@@ -12,6 +12,11 @@
 #include <string.h>
 #include "LS_allegro.h"
 
+/**
+ * Estrucutra singular para cada piloto, para almacenar cierta información documentativa del piloto, el tiempo que ha tardado
+ * en finalizar la carrera para poder ordenar según este atributo y conseguir luego el atributo posición de la carrera
+ * que ha lograda
+ */
 typedef struct {
     int tiempo_carrera;
     int posicion;
@@ -20,11 +25,20 @@ typedef struct {
     int dorsal;
 }Info_Class;
 
+/**
+ * Estructura dedicada a guardar un array dinàmico de la estrucutra Info_Class de numero de pilotos como posiciones del array
+ * para obtener la estructura Info_class para cada piloto en particular.
+ */
 typedef struct {
     char nombreGP[MAX_STRING];
     Info_Class *clas;
 }Info_Class_GP;
 
+/**
+ * Finalmente la última estructura almacena la clasificación en general donde dentro guardamos un array dinámico de una cantidad
+ * igual a la de gran premios de la temporada. Porque el objetivo es almacenar tantas clasificaciones como Gran premios hay
+ * en una temporada.
+ */
 typedef struct {
     int numClasificaciones;
     Info_Class_GP *clas_GPs;

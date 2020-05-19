@@ -9,6 +9,9 @@
  * Lista Ordeana adaptada a contener estructuras del tipo Premio
  */
 
+/**
+ * Estructura específica para guardar los atributos de un gran premio
+ */
 typedef struct {
     int posicion;
     char nombre[MAX_STRING];
@@ -21,11 +24,17 @@ typedef struct {
     int numPitStop;
 }Premio;
 
+/**
+ * Estructura que define que cada nodo de la lista va alamcenar un gran premio en particular
+ */
 typedef struct N {
     Premio elemento;
     struct N *sig;
 } Nodo;
 
+/**
+ * Estructura para controlar con punteros la inserción y diferentes metodos de la lista ordenada
+ */
 typedef struct {
     int numPremios;
     Nodo *pri;

@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * Estructura definida para leer las estadísitcas básicas de los coches
+ */
 typedef struct{
     int velocidad;
     int aceleracion;
