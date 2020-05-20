@@ -68,9 +68,9 @@ void printarInfoCarrera(Premio premio) {
  */
 void mostrarSemaforo(int vermelles) {
     int i, j, x1 = 250, y1 = 150, x2 = 320, y2 = 350, cx = 285, cy = 175, r = 18;
-    //printf("Hola vamos a printar el semaforo\n");
     float t1, t0, k = 1.0;
-    LS_allegro_clear_and_paint(WHITE);
+
+    //Imprimimos los semaforos apagados
     for (i = 0; i < 5; i++) {
         al_draw_filled_rectangle(x1, y1, x2, y2, LS_allegro_get_color(BLACK));
         x1 = x1 + 90;
@@ -83,6 +83,8 @@ void mostrarSemaforo(int vermelles) {
         cy = 175;
     }
     cx = 285;
+
+    //Imprimimos los semaforos encendidos
     for (int i = 0; i < vermelles; ++i) {
         cy = 275;
         al_draw_filled_circle(cx, cy, r, LS_allegro_get_color(RED));
@@ -189,8 +191,9 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
  * @param tiempos   Estrucutra que permite saber cuanto tiempo va a durar la carrera
  */
 void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
-    float time = 0, _clock;
-    int num_stops = 0, i, j=0, y_dorsal, y_line, y_car, stop_valido = 0, x_line = 670, posicion;
+    float time = 0, _clock, tiempoStop;
+    int num_stops = 0, i, j = 0, y_dorsal, y_line, y_car, stop_valido = 0, x_line = 670;
+    int tiempoTotal, tiempoPit, stop = 0, tiempoTotalStop = 0;
     float x_car[NUM_PILOTS];
     ALLEGRO_BITMAP *cotxe;
     cotxe = al_load_bitmap("../imgs/cotxe.png");
@@ -201,41 +204,72 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
     _clock = clock();
     LS_allegro_clear_and_paint(BLACK);
 
-    while (time <= tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera) {
+    //tiempo que tarda nuestro piloto
+    tiempoTotal = tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera - tiempos->tiempos[NUM_PILOTS - 1].tiempo_stops;
+
+    //tiempo de cada pitStop
+    tiempoPit = (int) (tiempos->tiempos[NUM_PILOTS - 1].tiempo_stops / tiempos->tiempos[NUM_PILOTS - 1].num_stops);
+
+    while (time <= tiempoTotal) {
         y_dorsal = 30, y_line = 37, y_car = 18;
+
+        //Tiempo transcurrido de carrera
         time = ((float) clock() - _clock) / CLOCKS_PER_SEC;
+
+        //Si estamos en pitStop comprobamos si ha transucrrido el tiempo necesario
+        if (stop && time >= tiempoStop) stop = 0;
+
+        //Solicitud pitStop por Radio
         if (LS_allegro_key_pressed(ALLEGRO_KEY_R)) {
             stop_valido = 1;
         }
+
+        //Solicitud pitSop
         if (LS_allegro_key_pressed(ALLEGRO_KEY_P)) {
-            if (num_stops == tiempos->tiempos[NUM_PILOTS - 1].num_stops) {
-                //no hacemos ninguna acción, los pit stops necesarios se han realizado por lo tanto no es necesario entrar a boxes
-            } else {
-                if (stop_valido == 1) {
-                    num_stops++;
-                    stop_valido = 0;
-                }
+            //Si aun no hemos echo todos los pitStops y tenemos la confirmación por radio realizamos un pitStop
+            if (num_stops < tiempos->tiempos[NUM_PILOTS - 1].num_stops && stop_valido == 1) {
+                num_stops++;
+                stop_valido = 0;
+                tiempoTotal += tiempoPit;
+                tiempoStop = time + tiempoPit;
+                tiempoTotalStop += tiempoPit;
+                stop = 1;
             }
         }
 
+        //imprimimos la interfaz
         interfaz_graf_carrera(piloto, tiempos, num_stops);
+
+        //Imprimimos el timepo transcurrido
         al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 870, 420, 0, "%.2f", time);
 
+        //Imprimimos cada piloto y calculamos su próxima posición
         for (i = 0; i < NUM_PILOTS; i++) {
+            //Imprimimos el dorsal del piloto
             al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 25, y_dorsal, 0, "%d",
                           tiempos->tiempos[i].dorsal);
             al_draw_line(80, y_line, 80 + x_line, y_line, LS_allegro_get_color(BLACK), 3);
-            al_draw_scaled_bitmap(cotxe, 0, 0, al_get_bitmap_width(cotxe), al_get_bitmap_height(cotxe), x_car[i], y_car, 60, 30, 0);
-            y_dorsal = y_dorsal + 65;
+
+            //Imprimimos el coche del piloto en la posición calculada
+            al_draw_scaled_bitmap(cotxe, 0, 0, al_get_bitmap_width(cotxe), al_get_bitmap_height(cotxe), x_car[i], y_car,
+                                  60, 30, 0);
+
+            //calculamos su próxima posición del piloto
             if (time <= tiempos->tiempos[i].tiempo_carrera) {
-                x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;
+                if (i == NUM_PILOTS - 1) {
+                    if (stop == 0) x_car[i] = ((time - tiempoTotalStop) / (tiempoTotal - tiempoTotalStop)) *
+                                              (x_line - 60) + 80;
+                } else x_car[i] = (time / tiempos->tiempos[i].tiempo_carrera) * (x_line - 60) + 80;
             }
-            y_car = y_car + 65;
-            y_line = y_line + 65;
+            y_dorsal += + 65;
+            y_car += 65;
+            y_line += 65;
         }
         LS_allegro_clear_and_paint(BLACK);
     }
     al_destroy_bitmap(cotxe);
+
+    //Penalización por no realizar los pitStops necesarios
     if (num_stops < tiempos->tiempos[NUM_PILOTS - 1].num_stops) {
         tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera =
                 tiempos->tiempos[NUM_PILOTS - 1].tiempo_carrera + (5 * tiempos->tiempos[NUM_PILOTS - 1].tiempo_stops);
@@ -250,10 +284,13 @@ void mostrarCarrera(Corredor *piloto, Tiempos *tiempos) {
 void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
     int err = 0;
     LS_allegro_clear_and_paint(BLACK);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - (((int)strlen(piloto->nombre)*12)/2), 220, 0, "%s", piloto->nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((27*12)/2), 250, 0, "%s", "HA FINALITZAT EN LA POSICIO");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) + ((28*12)/2), 250, 0, "%d", *posicion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000/2) - ((30*12)/2), 320, 0, "%s",
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE),
+                  (1000 / 2) - (((int) strlen(piloto->nombre) * 12) / 2), 220, 0, "%s", piloto->nombre);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000 / 2) - ((27 * 12) / 2), 250, 0, "%s",
+                  "HA FINALITZAT EN LA POSICIO");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000 / 2) + ((28 * 12) / 2), 250, 0, "%d",
+                  *posicion);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), (1000 / 2) - ((30 * 12) / 2), 320, 0, "%s",
                   "PULSA ENTER PER TORNAR AL MENU");
     LS_allegro_clear_and_paint(BLACK);
     while (err == 0) {
@@ -273,6 +310,7 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
  * @param num_stops     Entero que indica cuantos pit stops lleva durante la carrera nuestro piloto
  */
 void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
+    //Imprimimos la información del piloto
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", "PILOT");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", " NOM");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 60, 0, " %s", piloto->nombre);
@@ -281,6 +319,7 @@ void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", " DORSAL");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 140, 0, " %d ", piloto->dorsal);
 
+    //Imprimimos la imformación del coche
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 160, 0, "%s", "COTXE");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", " VELOCITAT");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 200, 0, " %d ", piloto->velocidad);
@@ -291,6 +330,7 @@ void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", " FIABILITAT");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 320, 0, " %d ", piloto->fiabilidad);
 
+    //Imprimimos los stops hechos / stops necesarios
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 565, 0, "%s", "STOPS:    / ");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 880, 565, 0, "%d", num_stops);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 960, 565, 0, "%d",
