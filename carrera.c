@@ -33,16 +33,16 @@ void printarInfoCarrera(Premio premio) {
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 140, 0, "%s ", "BENVINGUT AL");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 460, 140, 0, "%s",
                   premio.nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s ", "VELOCITAT:");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s ", VEL);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 510, 190, 0, "%d",
                   premio.velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 220, 0, "%s", "ACCELERACIO: ");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 220, 0, "%s", ACC);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 535, 220, 0, "%d",
                   premio.aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 250, 0, "%s", "CONSUM: ");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 250, 0, "%s", CON);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 470, 250, 0, "%d",
                   premio.consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 280, 0, "%s", "FIABILITAT: ");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 280, 0, "%s", FIA);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 520, 280, 0, "%d",
                   premio.fiabilidad);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 340, 0, "%s",
@@ -113,12 +113,14 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
     //printf("%d pit stops por grna premio\n", num_pit_stops);
     //printf("%d seg base\n", tiempo_base_seg);
 
+    //bucle para guardar los tiempos de cada piloto menos el nuestro de momento
     for (i = 0; i < pilotos->num_corredors; i++) {
         num_pit_stops = premio.numPitStop;
         //printf("%s piloto\n", pilotos->corredores[i].nombre);
         strcpy(tiempos->tiempos[i].nombre, pilotos->corredores[i].nombre);
         tiempos->tiempos[i].dorsal = pilotos->corredores[i].dorsal;
 
+        //Sumamos el calculo de las diferencias al tiempo base del gran premio en particular
         diferencias = ((abs(premio.velocidad - pilotos->corredores[i].velocidad) +
                         abs(premio.aceleracion - pilotos->corredores[i].aceleracion) +
                         abs(premio.consumo - pilotos->corredores[i].consumo) +
@@ -126,6 +128,8 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
         tiempos->tiempos[i].tiempo_carrera = tiempo_base_seg + diferencias;
         //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 
+        //averiguamos según el consumo cuantos pit stops debe realizar cada piloto, y en función del número incrementar
+        //el tiempo de carrera con el tiempo que gastara en pit stops el piloto corresponiente
         if (pilotos->corredores[i].consumo < premio.consumo) {
             num_pit_stops--;
             tiempos->tiempos[i].tiempo_stops = (premio.tiempoPitStop * num_pit_stops);
@@ -140,14 +144,18 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
         }
         //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 
+        //restaremos al tiempo de carrera el calculo de las habilidadas características de cada piloto
         coef_habilidad = ((pilotos->corredores[i].reflejos + pilotos->corredores[i].cond_fisica +
                            pilotos->corredores[i].temperamento + pilotos->corredores[i].gestion_neumaticos) / 4) / 2;
         //printf("%d coef hability\n", coef_habilidad);
-
         tiempos->tiempos[i].tiempo_carrera = (tiempos->tiempos[i].tiempo_carrera - coef_habilidad);
         //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
     }
+
     //añadimos al struct tiempo en la ultima posicion los calculos para nuestro propio piloto
+    //es exactamente el mismo procedimiento y calculos hechos anteriormente para los otros pilotos, y ahora utilitzados
+    //solamente para nuestro propio piloto
+
     //printf("%s piloto propio\n", piloto->nombre);
     strcpy(tiempos->tiempos[i].nombre, piloto->nombre);
     tiempos->tiempos[i].dorsal = piloto->dorsal;
@@ -321,13 +329,13 @@ void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
 
     //Imprimimos la imformación del coche
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 160, 0, "%s", "COTXE");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", " VELOCITAT");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", VEL);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 200, 0, " %d ", piloto->velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 220, 0, "%s", " ACCELERACIO");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 220, 0, "%s", ACC);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 240, 0, " %d ", piloto->aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 260, 0, "%s", " CONSUM");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 260, 0, "%s", CON);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 280, 0, " %d ", piloto->consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", " FIABILITAT");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", FIA);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 320, 0, " %d ", piloto->fiabilidad);
 
     //Imprimimos los stops hechos / stops necesarios
