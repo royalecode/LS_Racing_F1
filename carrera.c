@@ -319,12 +319,12 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
  */
 void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
     //Imprimimos la información del piloto
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", "PILOT");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", " NOM");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", PIL);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", NOM);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 60, 0, " %s", piloto->nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 80, 0, "%s", " ESCUDERIA");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 80, 0, "%s", ESC);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 100, 0, " %s ", piloto->escuderia);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", " DORSAL");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", DOR);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 140, 0, " %d ", piloto->dorsal);
 
     //Imprimimos la imformación del coche

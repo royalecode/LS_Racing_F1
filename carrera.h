@@ -19,6 +19,10 @@
 #define CON "CONSUM"
 #define FIA "FIABILITAT"
 #define ACC "ACELERACION"
+#define PIL "PILOT"
+#define ESC "ESCUDERIA"
+#define DOR "DORSAL"
+#define NOM "NOM"
 
 /**
  * Estructura tiempos_corredor almacena características de la carrera como (pit_stops, duración, información personal del piloto)
