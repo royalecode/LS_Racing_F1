@@ -28,7 +28,7 @@
 #define TEXT_FIA "Fiabilitat"
 #define TEXT_CONF1 "CONFIGURACIO"
 #define TEXT_CONF2 "ACTUAL"
-#define TEXT_CONF3 "Configuración del Coche"
+#define TEXT_CONF3 "Configuracion del Coche"
 #define TEXT_ESC "(ESC): SALIR"
 
 
