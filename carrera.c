@@ -33,16 +33,16 @@ void printarInfoCarrera(Premio premio) {
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 140, 0, "%s ", "BENVINGUT AL");
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 460, 140, 0, "%s",
                   premio.nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s ", VEL);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 190, 0, "%s ", VEL_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 510, 190, 0, "%d",
                   premio.velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 220, 0, "%s", ACC);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 220, 0, "%s", ACC_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 535, 220, 0, "%d",
                   premio.aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 250, 0, "%s", CON);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 250, 0, "%s", CON_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 470, 250, 0, "%d",
                   premio.consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 280, 0, "%s", FIA);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 380, 280, 0, "%s", FIA_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 520, 280, 0, "%d",
                   premio.fiabilidad);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 300, 340, 0, "%s",
@@ -307,23 +307,23 @@ void mostrarFinalCarrera(Corredor *piloto, int *posicion) {
  */
 void interfaz_graf_carrera(Corredor *piloto, Tiempos *tiempos, int num_stops) {
     //Imprimimos la información del piloto
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", PIL);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", NOM);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 20, 0, "%s", PIL_text);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 40, 0, "%s", NOM_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 60, 0, " %s", piloto->nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 80, 0, "%s", ESC);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 80, 0, "%s", ESC_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 100, 0, " %s ", piloto->escuderia);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", DOR);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 120, 0, "%s", DOR_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 140, 0, " %d ", piloto->dorsal);
 
     //Imprimimos la imformación del coche
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 160, 0, "%s", "COTXE");
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", VEL);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 180, 0, "%s", VEL_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 200, 0, " %d ", piloto->velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 220, 0, "%s", ACC);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 220, 0, "%s", ACC_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 240, 0, " %d ", piloto->aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 260, 0, "%s", CON);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 260, 0, "%s", CON_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 280, 0, " %d ", piloto->consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", FIA);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 800, 300, 0, "%s", FIA_text);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(YELLOW), 800, 320, 0, " %d ", piloto->fiabilidad);
 
     //Imprimimos los stops hechos / stops necesarios

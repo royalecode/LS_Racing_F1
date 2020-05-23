@@ -15,14 +15,14 @@
 #include <time.h>
 
 #define NUM_PILOTS 8
-#define VEL "VELOCITAT"
-#define CON "CONSUM"
-#define FIA "FIABILITAT"
-#define ACC "ACELERACION"
-#define PIL "PILOT"
-#define ESC "ESCUDERIA"
-#define DOR "DORSAL"
-#define NOM "NOM"
+#define VEL_text "VELOCITAT"
+#define CON_text "CONSUM"
+#define FIA_text "FIABILITAT"
+#define ACC_text "ACELERACION"
+#define PIL_text "PILOT"
+#define ESC_text "ESCUDERIA"
+#define DOR_text "DORSAL"
+#define NOM_text "NOM"
 
 /**
  * Estructura tiempos_corredor almacena características de la carrera como (pit_stops, duración, información personal del piloto)
