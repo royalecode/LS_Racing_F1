@@ -13,6 +13,25 @@
 #include "LS_allegro.h"
 #include "corredor.h"
 
+
+/*
+ * Constantes de textos
+ */
+
+#define TEXT_W "w"
+#define TEXT_A "a"
+#define TEXT_S "s"
+#define TEXT_D "d"
+#define TEXT_VEL "Velocitat"
+#define TEXT_ACC "Acceleració"
+#define TEXT_CON "Consum"
+#define TEXT_FIA "Fiabilitat"
+#define TEXT_CONF1 "CONFIGURACIO"
+#define TEXT_CONF2 "ACTUAL"
+#define TEXT_CONF3 "Configuración del Coche"
+#define TEXT_ESC "(ESC): SALIR"
+
+
 /**
  * Procedimiento que pide al usuario por terminal distintos datos del piloto
  * @param piloto Esctructura donde guarda los datos

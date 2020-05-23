@@ -56,16 +56,16 @@ void printFlechasImg(int x, int y, int px, char *img) {
                             LS_allegro_get_color(WHITE));
     al_draw_filled_rectangle(5 * px + x, 2 * px + y, 7 * px + x, 4 * px + y, LS_allegro_get_color(WHITE));
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 5 * (px * num) + x, 2 * (px * num) + y, 0,
-                  "w");
+                  TEXT_W);
     al_draw_filled_rectangle(2 * px + x, 5 * px + y, 4 * px + x, 7 * px + y, LS_allegro_get_color(WHITE));
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 2 * (px * num) + x, 5 * (px * num) + y, 0,
-                  "a");
+                  TEXT_A);
     al_draw_filled_rectangle(8 * px + x, 5 * px + y, 10 * px + x, 7 * px + y, LS_allegro_get_color(WHITE));
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 8 * (px * num) + x, 5 * (px * num) + y, 0,
-                  "d");
+                  TEXT_D);
     al_draw_filled_rectangle(5 * px + x, 8 * px + y, 7 * px + x, 10 * px + y, LS_allegro_get_color(WHITE));
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(BLACK), 5 * (px * num) + x, 8 * (px * num) + y, 0,
-                  "s");
+                  TEXT_S);
 
     al_destroy_bitmap(photo);
 
@@ -82,14 +82,14 @@ void printPieza(CategoriaPiezas categoriaPiezas, int ic, int ip) {
                   categoriaPiezas.categorias[ic].nombre);
     al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 115, 0, "%s",
                   categoriaPiezas.categorias[ic].piezas[ip].nombre);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 135, 0, "Velocitat: %d",
-                  categoriaPiezas.categorias[ic].piezas[ip].velocidad);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 155, 0, "Acceleracio: %d",
-                  categoriaPiezas.categorias[ic].piezas[ip].aceleracion);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 175, 0, "Consum: %d",
-                  categoriaPiezas.categorias[ic].piezas[ip].consumo);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 195, 0, "Fiabilitat: %d",
-                  categoriaPiezas.categorias[ic].piezas[ip].fiabilidad);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 135, 0, "%s: %d",
+                  TEXT_VEL, categoriaPiezas.categorias[ic].piezas[ip].velocidad);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 155, 0, "%s: %d",
+                  TEXT_ACC, categoriaPiezas.categorias[ic].piezas[ip].aceleracion);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 175, 0, "%s: %d",
+                  TEXT_CON, categoriaPiezas.categorias[ic].piezas[ip].consumo);
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 815, 195, 0, "%s: %d",
+                  TEXT_FIA, categoriaPiezas.categorias[ic].piezas[ip].fiabilidad);
 }
 
 /**
@@ -101,8 +101,8 @@ void printPieza(CategoriaPiezas categoriaPiezas, int ic, int ip) {
 void printConf(CategoriaPiezas categoriaPiezas, Pieza *piezas, int ic) {
     int i, y;
 
-    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 620, 300, 0, "Configuracio");
-    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 620, 330, 0, "actual");
+    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 620, 300, 0, TEXT_CONF1);
+    al_draw_textf(LS_allegro_get_font(LARGE), LS_allegro_get_color(WHITE), 620, 330, 0, TEXT_CONF2);
 
     y = 0;
     for (i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
@@ -148,7 +148,7 @@ void printGaraje(Pieza *piezas, CategoriaPiezas categoriaPiezas, int ic, int ip)
     printFlechasImg(625, 75, 15, categoriaPiezas.categorias[ic].nombre);
     printPieza(categoriaPiezas, ic, ip);
     printConf(categoriaPiezas, piezas, ic);
-    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 845, 580, 0, "(ESC): SALIR");
+    al_draw_textf(LS_allegro_get_font(NORMAL), LS_allegro_get_color(WHITE), 845, 580, 0, TEXT_ESC);
 
 
     LS_allegro_clear_and_paint(BLACK);
@@ -190,7 +190,7 @@ void mostrarGaraje(Corredor *piloto, CategoriaPiezas categoriaPiezas, Pieza *pie
     printf("\nCargando configurador...\n");
 
     //Inicialitzem Allegro
-    LS_allegro_init(1000, 600, "Configuracion del coche");
+    LS_allegro_init(1000, 600, TEXT_CONF3);
 
     ip = getIndexPieza(ic, piezas, categoriaPiezas);
 

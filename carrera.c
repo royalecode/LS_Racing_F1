@@ -50,11 +50,13 @@ void printarInfoCarrera(Premio premio) {
     LS_allegro_clear_and_paint(BLACK);
     while (err == 0) {
         if (LS_allegro_key_pressed(ALLEGRO_KEY_R)) {
+            LS_allegro_clear_and_paint(WHITE);
+
             for (i = 0; i < 6; ++i) {
-                temporizador(1000);
                 mostrarSemaforo(i);
+                temporizador(1000);
             }
-            temporizador(2000);
+            temporizador(1000);
             mostrarSemaforo(0);
             temporizador(500);
             err = 1;
@@ -110,13 +112,9 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
     tiempos->tiempos = (Tiempos_Corredor *) malloc(sizeof(Tiempos_Corredor) * NUM_PILOTS);
     tiempo_base_seg = (premio.tiempoBase) * 60;
 
-    //printf("%d pit stops por grna premio\n", num_pit_stops);
-    //printf("%d seg base\n", tiempo_base_seg);
-
     //bucle para guardar los tiempos de cada piloto menos el nuestro de momento
     for (i = 0; i < pilotos->num_corredors; i++) {
         num_pit_stops = premio.numPitStop;
-        //printf("%s piloto\n", pilotos->corredores[i].nombre);
         strcpy(tiempos->tiempos[i].nombre, pilotos->corredores[i].nombre);
         tiempos->tiempos[i].dorsal = pilotos->corredores[i].dorsal;
 
@@ -126,7 +124,6 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
                         abs(premio.consumo - pilotos->corredores[i].consumo) +
                         abs(premio.fiabilidad - pilotos->corredores[i].fiabilidad)));
         tiempos->tiempos[i].tiempo_carrera = tiempo_base_seg + diferencias;
-        //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 
         //averiguamos según el consumo cuantos pit stops debe realizar cada piloto, y en función del número incrementar
         //el tiempo de carrera con el tiempo que gastara en pit stops el piloto corresponiente
@@ -142,21 +139,17 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
             tiempos->tiempos[i].tiempo_stops = (premio.tiempoPitStop * num_pit_stops);
             tiempos->tiempos[i].tiempo_carrera = tiempos->tiempos[i].tiempo_carrera + tiempos->tiempos[i].tiempo_stops;
         }
-        //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 
         //restaremos al tiempo de carrera el calculo de las habilidadas características de cada piloto
         coef_habilidad = ((pilotos->corredores[i].reflejos + pilotos->corredores[i].cond_fisica +
                            pilotos->corredores[i].temperamento + pilotos->corredores[i].gestion_neumaticos) / 4) / 2;
-        //printf("%d coef hability\n", coef_habilidad);
         tiempos->tiempos[i].tiempo_carrera = (tiempos->tiempos[i].tiempo_carrera - coef_habilidad);
-        //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
     }
 
     //añadimos al struct tiempo en la ultima posicion los calculos para nuestro propio piloto
     //es exactamente el mismo procedimiento y calculos hechos anteriormente para los otros pilotos, y ahora utilitzados
     //solamente para nuestro propio piloto
 
-    //printf("%s piloto propio\n", piloto->nombre);
     strcpy(tiempos->tiempos[i].nombre, piloto->nombre);
     tiempos->tiempos[i].dorsal = piloto->dorsal;
     diferencias = ((abs(premio.velocidad - piloto->velocidad) +
@@ -164,7 +157,6 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
                     abs(premio.consumo - piloto->consumo) +
                     abs(premio.fiabilidad - piloto->fiabilidad)));
     tiempos->tiempos[i].tiempo_carrera = tiempo_base_seg + diferencias;
-    //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);;
 
     num_pit_stops = premio.numPitStop;
     if (piloto->consumo < premio.consumo) {
@@ -182,14 +174,10 @@ void calcularTiempo(Corredores *pilotos, Premio premio, Tiempos *tiempos, Corred
         tiempos->tiempos[i].tiempo_carrera = tiempos->tiempos[i].tiempo_carrera + tiempos->tiempos[i].tiempo_stops;
         tiempos->tiempos[i].num_stops = num_pit_stops;
     }
-    //printf("%d num pit stips acutalitz\n", tiempos->tiempos[i].num_stops);
-    //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 
     coef_habilidad =
             ((piloto->reflejos + piloto->cond_fisica + piloto->temperamento + piloto->gestion_neumaticos) / 4) / 2;
-    //printf("%d coef hability\n", coef_habilidad);
     tiempos->tiempos[i].tiempo_carrera = (tiempos->tiempos[i].tiempo_carrera - coef_habilidad);
-    //printf("%d tiempo carrera\n", tiempos->tiempos[i].tiempo_carrera);
 }
 
 /**
