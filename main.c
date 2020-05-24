@@ -99,6 +99,13 @@ int main(int num_parametres, char **parametres) {
             free(clasificacion.clas_GPs[i].clas);
         }
         free(clasificacion.clas_GPs);
+
+        for ( i = 0; i < categoriaPiezas.numeroCategorias; ++i) {
+            free(categoriaPiezas.categorias[i].piezas);
+        }
+        free(categoriaPiezas.categorias);
+        free(pilotos.corredores);
+        free(tiempos.tiempos);
     }
     return 0;
 }
